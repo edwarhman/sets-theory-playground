@@ -1,37 +1,31 @@
 import Plot from "react-plotly.js";
-import { FiniteSet } from "../lib/algebraOfSets/Set";
 
-interface SetsPlotProps {
-	sets?: number[][];
+interface DataTrace {
+	y: number[];
+	x: number[];
+	mode: string;
+	fill: string;
+	line: { color: string };
+	fillcolor: string;
+	name: string;
 }
 
-const SetsPlot: React.FC<SetsPlotProps> = ({ sets }) => {
-	const set1 = new FiniteSet([1, 6]);
+interface SetsPlotProps {
+	data: DataTrace[];
+}
+
+const SetsPlot: React.FC<SetsPlotProps> = ({ data }) => {
 	return (
 		<Plot
-			data={[
-				{
-					y: [1, 1],
-					x: [set1.getMin(), set1.getMax()],
-					mode: "lines",
-					fill: "tozeroy",
-					line: { color: "transparent" },
-					fillcolor: "rgba(0,100,80,0.3)",
-				},
-				{
-					y: [1, 1],
-					x: [3, 9],
-					mode: "lines",
-					fill: "tozeroy",
-					line: { color: "transparent" },
-					fillcolor: "rgba(0,100,180,0.3)",
-					name: "Filled Area",
-				},
-			]}
+			data={data}
 			layout={{
 				title: "Sets Plot",
 				xaxis: { title: "Values" },
-				yaxis: { title: "Set Index", range: [0, 2.5], showticklabels: false },
+				yaxis: {
+					title: "Set Index",
+					range: [0, 4],
+					showticklabels: false,
+				},
 			}}
 		/>
 	);
