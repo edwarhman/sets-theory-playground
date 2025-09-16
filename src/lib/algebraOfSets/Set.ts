@@ -1,11 +1,12 @@
 export abstract class BaseSet {
-    abstract execute(): BaseSet;
-    abstract getMin(): number;
-    abstract getMax(): number;
-    abstract contains(value: number): boolean;
-    abstract contains(value: BaseSet): boolean;
-    abstract isVoid(): boolean;
-    abstract toString(): string;
+  abstract execute(): BaseSet;
+  abstract getMin(): number;
+  abstract getMax(): number;
+  abstract contains(value: number): boolean;
+  abstract contains(value: BaseSet): boolean;
+  abstract isVoid(): boolean;
+  abstract toString(): string;
+  abstract equals(other: BaseSet): boolean;
 }
 
 export class FiniteSet extends BaseSet {
@@ -40,6 +41,13 @@ export class FiniteSet extends BaseSet {
     } else {
       return value.getMin() >= this.min && value.getMax() <= this.max;
     }
+  }
+
+  equals(other: BaseSet): boolean {
+    if (!(other instanceof FiniteSet)) {
+      return false;
+    }
+    return this.min === other.min && this.max === other.max;
   }
 
   toString(): string {
