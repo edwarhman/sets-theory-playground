@@ -117,19 +117,20 @@
   white-space: nowrap;
 }
 
-.intersection-drop-zone {
-  border: 2px dashed #007bff;
-  border-radius: 4px;
-  padding: 20px;
-  text-align: center;
-  margin: 10px 0;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.drop-zone {
+	border: 2px dashed #666;
+	border-radius: 4px;
+	padding: 20px;
+	text-align: center;
+	margin: 10px 0;
+	background-color: #2c3e50;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
-.intersection-drop-zone:hover, .intersection-drop-zone.drag-over {
-  background-color: #e3f2fd;
+.drop-zone:hover, .drop-zone.active {
+	background-color: #34495e;
 }
 
 .computed-set {

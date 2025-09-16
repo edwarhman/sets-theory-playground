@@ -51,10 +51,6 @@ function App() {
 		return [];
 	};
 
-	const handleDragStart = (e: React.DragEvent, id: number) => {
-		e.dataTransfer.setData("text/plain", id.toString());
-	};
-
 	const handleDragOver = (e: React.DragEvent) => {
 		e.preventDefault();
 	};
@@ -162,7 +158,7 @@ function App() {
 					Add Set
 				</button>
 				<div
-					className={`intersection-drop-zone ${temporarySelected.length > 0 ? "active" : ""}`}
+					className={`drop-zone ${temporarySelected.length > 0 ? "active" : ""}`}
 					onDragOver={handleDragOver}
 					onDrop={handleDrop}
 				>
@@ -184,7 +180,7 @@ function App() {
 					)}
 				</div>
 				<div
-					className={`union-drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""}`}
+					className={`drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""}`}
 					onDragOver={handleDragOver}
 					onDrop={handleDropUnion}
 				>
