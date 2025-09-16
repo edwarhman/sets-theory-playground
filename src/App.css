@@ -117,6 +117,54 @@
   white-space: nowrap;
 }
 
+.intersection-drop-zone {
+  border: 2px dashed #007bff;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  margin: 10px 0;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.intersection-drop-zone:hover, .intersection-drop-zone.drag-over {
+  background-color: #e3f2fd;
+}
+
+.computed-set {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #800080;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f3e5f5;
+}
+
+.set-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.intervals-summary {
+  font-size: 0.9em;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.color-input {
+  width: 50px;
+  height: 35px;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 @media (max-width: 768px) {
   .app-container {
     flex-direction: column;

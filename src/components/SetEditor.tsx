@@ -1,11 +1,18 @@
 import React from "react";
+import { FiniteSet } from "../lib/algebraOfSets/Set";
+
+export interface Interval {
+	min: number;
+	max: number;
+}
 
 export interface SetConfig {
 	id: number;
-	min: number;
-	max: number;
-	color: string;
 	name: string;
+	color: string;
+	intervals: Interval[];
+	computed?: boolean;
+	baseSet?: unknown; // BaseSet from library
 }
 
 interface SetEditorProps {
@@ -15,8 +22,34 @@ interface SetEditorProps {
 }
 
 const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
+	if (set.computed) {
+		return (
+			<div className="set-editor computed-set">
+				<span className="set-name">{set.name}</span>
+				<span className="intervals-summary">
+					{set.intervals.map((int) => `[${int.min}, ${int.max}]`).join(" ")}
+				</span>
+				<input
+					type="color"
+					value={set.color}
+					onChange={(e) => onUpdate({ ...set, color: e.target.value })}
+					className="color-input"
+				/>
+				<button onClick={onDelete}>Delete</button>
+			</div>
+		);
+	}
+
+	const interval = set.intervals[0] || { min: 0, max: 1 };
+
 	return (
-		<div className="set-editor">
+		<div
+			className="set-editor"
+			draggable
+			onDragStart={(e) =>
+				e.dataTransfer.setData("text/plain", set.id.toString())
+			}
+		>
 			<input
 				type="text"
 				value={set.name}
@@ -25,18 +58,28 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 			/>
 			<input
 				type="number"
-				value={set.min}
-				onChange={(e) =>
-					onUpdate({ ...set, min: parseFloat(e.target.value) || 0 })
-				}
+				value={interval.min}
+				onChange={(e) => {
+					const newMin = parseFloat(e.target.value) || 0;
+					onUpdate({
+						...set,
+						intervals: [{ min: newMin, max: interval.max }],
+						baseSet: new FiniteSet(newMin, interval.max),
+					});
+				}}
 				placeholder="Min"
 			/>
 			<input
 				type="number"
-				value={set.max}
-				onChange={(e) =>
-					onUpdate({ ...set, max: parseFloat(e.target.value) || 0 })
-				}
+				value={interval.max}
+				onChange={(e) => {
+					const newMax = parseFloat(e.target.value) || 0;
+					onUpdate({
+						...set,
+						intervals: [{ min: interval.min, max: newMax }],
+						baseSet: new FiniteSet(interval.min, newMax),
+					});
+				}}
 				placeholder="Max"
 			/>
 			<input
