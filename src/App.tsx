@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import SetsPlot from "./components/SetsPlot";
-import SetEditor, { SetConfig } from "./components/SetEditor";
+import SetEditor from "./components/SetEditor";
+import type { SetConfig } from "./components/SetEditor";
 
 function App() {
 	const [sets, setSets] = useState<SetConfig[]>([]);
@@ -33,35 +34,30 @@ function App() {
 		mode: "lines",
 		fill: "tozeroy",
 		line: { color: "transparent" },
-		fillcolor: set.color + "80",
+		fillcolor: set.color,
 		name: set.name,
 	}));
 
 	return (
-		<div style={{ padding: "20px" }}>
-			<button
-				onClick={addSet}
-				style={{
-					padding: "10px 20px",
-					marginBottom: "20px",
-					backgroundColor: "#007bff",
-					color: "white",
-					border: "none",
-					borderRadius: "4px",
-					cursor: "pointer",
-				}}
-			>
-				Add Set
-			</button>
-			{sets.map((set) => (
-				<SetEditor
-					key={set.id}
-					set={set}
-					onUpdate={updateSet}
-					onDelete={() => deleteSet(set.id)}
-				/>
-			))}
-			<SetsPlot data={data} />
+		<div className="app-container">
+			<div className="controls">
+				<button onClick={addSet} className="add-button">
+					Add Set
+				</button>
+				<div className="sets-list">
+					{sets.map((set) => (
+						<SetEditor
+							key={set.id}
+							set={set}
+							onUpdate={updateSet}
+							onDelete={() => deleteSet(set.id)}
+						/>
+					))}
+				</div>
+			</div>
+			<div className="plot-container">
+				<SetsPlot data={data} />
+			</div>
 		</div>
 	);
 }

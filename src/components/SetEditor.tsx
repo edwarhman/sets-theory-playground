@@ -16,23 +16,12 @@ interface SetEditorProps {
 
 const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 	return (
-		<div
-			style={{
-				display: "flex",
-				alignItems: "center",
-				gap: "10px",
-				padding: "10px",
-				border: "1px solid #ccc",
-				borderRadius: "4px",
-				marginBottom: "10px",
-			}}
-		>
+		<div className="set-editor">
 			<input
 				type="text"
 				value={set.name}
 				onChange={(e) => onUpdate({ ...set, name: e.target.value })}
 				placeholder="Set Name"
-				style={{ flex: 1, padding: "5px" }}
 			/>
 			<input
 				type="number"
@@ -41,7 +30,6 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 					onUpdate({ ...set, min: parseFloat(e.target.value) || 0 })
 				}
 				placeholder="Min"
-				style={{ width: "80px", padding: "5px" }}
 			/>
 			<input
 				type="number"
@@ -50,26 +38,13 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 					onUpdate({ ...set, max: parseFloat(e.target.value) || 0 })
 				}
 				placeholder="Max"
-				style={{ width: "80px", padding: "5px" }}
 			/>
 			<input
 				type="color"
 				value={set.color}
 				onChange={(e) => onUpdate({ ...set, color: e.target.value })}
-				style={{ width: "40px", height: "30px", padding: 0 }}
 			/>
-			<button
-				onClick={onDelete}
-				style={{
-					padding: "5px 10px",
-					backgroundColor: "#ff4444",
-					color: "white",
-					border: "none",
-					borderRadius: "4px",
-				}}
-			>
-				Delete
-			</button>
+			<button onClick={onDelete}>Delete</button>
 		</div>
 	);
 };

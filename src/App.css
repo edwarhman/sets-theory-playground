@@ -40,3 +40,101 @@
 .read-the-docs {
   color: #888;
 }
+
+.app-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.controls {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.sets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plot-container {
+  flex: 2;
+  min-width: 400px;
+}
+
+.set-editor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.set-editor input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  min-width: 100px;
+}
+
+.set-editor input[type="number"] {
+  width: 80px;
+  padding: 5px;
+}
+
+.set-editor input[type="color"] {
+  width: 50px;
+  height: 35px;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.set-editor button {
+  padding: 8px 12px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  min-height: 35px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .controls {
+    min-width: auto;
+  }
+
+  .plot-container {
+    min-width: auto;
+  }
+
+  .set-editor {
+    flex-wrap: wrap;
+  }
+
+  .set-editor input[type="text"] {
+    min-width: 120px;
+  }
+}
