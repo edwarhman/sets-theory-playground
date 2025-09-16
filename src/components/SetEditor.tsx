@@ -1,5 +1,5 @@
 import React from "react";
-import { FiniteSet } from "../lib/algebraOfSets/Set";
+import { BaseSet, FiniteSet } from "../lib/algebraOfSets/Set";
 
 export interface Interval {
 	min: number;
@@ -12,7 +12,7 @@ export interface SetConfig {
 	color: string;
 	intervals: Interval[];
 	computed?: boolean;
-	baseSet?: unknown; // BaseSet from library
+	baseSet?: BaseSet; // BaseSet from library
 }
 
 interface SetEditorProps {

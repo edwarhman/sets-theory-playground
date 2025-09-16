@@ -12,9 +12,10 @@ interface DataTrace {
 
 interface SetsPlotProps {
 	data: DataTrace[];
+	maxY?: number;
 }
 
-const SetsPlot: React.FC<SetsPlotProps> = ({ data }) => {
+const SetsPlot: React.FC<SetsPlotProps> = ({ data, maxY }) => {
 	return (
 		<Plot
 			data={data}
@@ -23,7 +24,7 @@ const SetsPlot: React.FC<SetsPlotProps> = ({ data }) => {
 				xaxis: { title: "Values" },
 				yaxis: {
 					title: "Set Index",
-					range: [0, 4],
+					range: [0, maxY || 4],
 					showticklabels: false,
 				},
 			}}

@@ -5,12 +5,15 @@ import SetEditor from "./components/SetEditor";
 import type { SetConfig } from "./components/SetEditor";
 import { BaseSet, FiniteSet } from "./lib/algebraOfSets/Set";
 import { CompoundSet } from "./lib/algebraOfSets/CompoundSet";
-import { intersection } from "./lib/algebraOfSets/SetOperations";
+import { intersection, union } from "./lib/algebraOfSets/SetOperations";
 import { EMPTY_SET } from "./lib/algebraOfSets/constants";
 
 function App() {
 	const [sets, setSets] = useState<SetConfig[]>([]);
 	const [temporarySelected, setTemporarySelected] = useState<number[]>([]);
+	const [unionTemporarySelected, setUnionTemporarySelected] = useState<
+		number[]
+	>([]);
 
 	const addSet = () => {
 		setSets([
@@ -21,6 +24,7 @@ function App() {
 				color: "#FF0000",
 				intervals: [{ min: 0, max: 1 }],
 				computed: false,
+				baseSet: new FiniteSet(0, 1),
 			},
 		]);
 	};
@@ -73,10 +77,8 @@ function App() {
 		const selectedSets = temporarySelected
 			.map((id) => sets.find((s) => s.id === id))
 			.filter(Boolean) as SetConfig[];
-		const finiteSets = selectedSets.map(
-			(s) => new FiniteSet(s.intervals[0].min, s.intervals[0].max),
-		);
-		const result = intersection(...finiteSets).execute();
+		const selectedBaseSets = selectedSets.map((s) => s.baseSet!.execute());
+		const result = intersection(...selectedBaseSets).execute();
 		const intervals = extractIntervals(result);
 		if (intervals.length === 0) {
 			alert("Intersection is empty.");
@@ -99,10 +101,48 @@ function App() {
 		setTemporarySelected([]);
 	};
 
+	const clearUnionTemporary = () => {
+		setUnionTemporarySelected([]);
+	};
+
+	const handleDropUnion = (e: React.DragEvent) => {
+		e.preventDefault();
+		const idString = e.dataTransfer.getData("text/plain");
+		const id = parseInt(idString);
+		if (isNaN(id) || sets.find((s) => s.id === id)?.computed) return;
+		if (!unionTemporarySelected.includes(id)) {
+			setUnionTemporarySelected([...unionTemporarySelected, id]);
+		}
+	};
+
+	const computeUnion = () => {
+		if (unionTemporarySelected.length < 2) {
+			alert("Select at least 2 sets to union.");
+			return;
+		}
+		const selectedSets = unionTemporarySelected
+			.map((id) => sets.find((s) => s.id === id))
+			.filter(Boolean) as SetConfig[];
+		const selectedBaseSets = selectedSets.map((s) => s.baseSet!.execute());
+		const result = union(...selectedBaseSets).execute();
+		const intervals = extractIntervals(result);
+		const newSet = {
+			id: Date.now(),
+			name: `Union of ${selectedSets.map((s) => s.name).join(", ")}`,
+			color: "#008000",
+			intervals,
+			computed: true,
+			baseSet: result,
+		};
+		setSets([...sets, newSet]);
+		setUnionTemporarySelected([]);
+	};
+
 	const data = sets.flatMap((set, index) => {
 		const opacity = set.computed ? "40" : "80";
-		const traces = set.intervals.map((int, sub) => ({
-			y: [1, 1],
+		const yLevel = index + 1;
+		const traces = set.intervals.map((int) => ({
+			y: [yLevel, yLevel],
 			x: [int.min, int.max],
 			mode: "lines",
 			fill: "tozeroy",
@@ -113,7 +153,7 @@ function App() {
 		return traces;
 	});
 
-	const maxY = Math.max(...data.map((d) => Math.max(...d.y)), 0);
+	const maxY = sets.length + 1;
 
 	return (
 		<div className="app-container">
@@ -143,6 +183,26 @@ function App() {
 						</div>
 					)}
 				</div>
+				<div
+					className={`union-drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""}`}
+					onDragOver={handleDragOver}
+					onDrop={handleDropUnion}
+				>
+					{unionTemporarySelected.length === 0 ? (
+						"Drop sets here to union"
+					) : (
+						<div>
+							<p>Dropped: {unionTemporarySelected.length} sets</p>
+							<p>
+								{unionTemporarySelected
+									.map((id) => sets.find((s) => s.id === id)?.name)
+									.join(", ")}
+							</p>
+							<button onClick={computeUnion}>Compute Union</button>
+							<button onClick={clearUnionTemporary}>Clear</button>
+						</div>
+					)}
+				</div>
 				<div className="sets-list">
 					{sets.map((set) => (
 						<SetEditor
@@ -150,7 +210,6 @@ function App() {
 							set={set}
 							onUpdate={updateSet}
 							onDelete={() => deleteSet(set.id)}
-							onDragStart={(e) => handleDragStart(e, set.id)}
 						/>
 					))}
 				</div>
