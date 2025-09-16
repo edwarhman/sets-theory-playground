@@ -1,6 +1,6 @@
 import { BaseSet, FiniteSet } from "./Set";
 import { CompoundSet } from "./CompoundSet";
-import { EMPTY_SET } from "./constants";
+import { EMPTY_SET, UNIVERSE } from "./constants";
 
 export class Union extends CompoundSet {
   constructor(sets: BaseSet[]) {
@@ -114,3 +114,18 @@ export class Intersection extends CompoundSet {
     return `Intersection(${this.sets.map((s) => s.toString()).join(', ')})`;
   }
 }
+
+export function interval(min: number, max: number): FiniteSet {
+  return new FiniteSet(min, max);
+}
+
+export function union(...sets: BaseSet[]): Union {
+  return new Union(sets);
+}
+
+export function intersection(...sets: BaseSet[]): Intersection {
+  return new Intersection(sets);
+}
+
+// Aliases for constants
+export { EMPTY_SET as empty, UNIVERSE as universe };
