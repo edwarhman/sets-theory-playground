@@ -174,22 +174,7 @@ function App() {
 	return (
 		<div className="app-container">
 			<div className="controls">
-				<div className="editor-column">
-					<div className="interval-create-alignment">
-						<IntervalCreate addSet={addSet} />
-					</div>
-					<div className="sets-list">
-						{sets.map((set) => (
-							<DraggableSetEditor
-								key={set.id}
-								set={set}
-								onUpdate={updateSet}
-								onDelete={() => deleteSet(set.id)}
-							/>
-						))}
-					</div>
-				</div>
-				<div className="drop-column">
+				<div className="drop-section">
 					<div
 						className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""}`}
 						onDragOver={handleDragOver}
@@ -233,6 +218,21 @@ function App() {
 								</div>
 							</div>
 						)}
+					</div>
+				</div>
+				<div className="editor-section">
+					<div className="interval-create-alignment">
+						<IntervalCreate addSet={addSet} />
+					</div>
+					<div className="sets-list">
+						{sets.map((set) => (
+							<DraggableSetEditor
+								key={set.id}
+								set={set}
+								onUpdate={updateSet}
+								onDelete={() => deleteSet(set.id)}
+							/>
+						))}
 					</div>
 				</div>
 			</div>

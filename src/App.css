@@ -52,11 +52,24 @@
 
 .controls {
   flex: 1;
-  /* min-width: 500px; */
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.drop-section {
   display: flex;
   flex-direction: row;
   gap: 15px;
-  box-sizing: border-box;
+  min-width: 100%;
+}
+
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .drop-column {
@@ -297,19 +310,16 @@
 
   .controls {
     min-width: auto;
-    flex-direction: column;
     gap: 10px;
   }
 
-  .drop-column {
-    min-width: auto;
+  .drop-section {
+    flex-direction: column;
     gap: 8px;
   }
 
-  .editor-column {
-    min-width: auto;
+  .editor-section {
     gap: 8px;
-    max-height: calc(100vh - 1rem);
   }
 
   .plot-container {
@@ -355,7 +365,7 @@
   }
 
   .interval-create-alignment {
-    margin-left: 0; /* Remove margin on mobile since layout is vertical */
+    margin-left: 0; /* No margin needed on mobile */
   }
 
   .drop-buttons {
@@ -375,10 +385,6 @@
 
   .controls {
     gap: 8px;
-  }
-
-  .editor-column {
-    max-height: calc(100vh - 1rem);
   }
 
   .drop-zone {
