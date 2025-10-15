@@ -1,4 +1,4 @@
-import { Union, Intersection, interval, union, intersection, empty, universe } from './SetOperations';
+import { interval, union, intersection, empty, universe } from './SetOperations';
 import { describe, it, expect } from 'bun:test';
 
 describe('Intersection', () => {

@@ -24,7 +24,13 @@ interface SetEditorProps {
 const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 	if (set.computed) {
 		return (
-			<div className="set-editor computed-set">
+			<div
+				className="set-editor computed-set"
+				draggable
+				onDragStart={(e) =>
+					e.dataTransfer.setData("text/plain", set.id.toString())
+				}
+			>
 				<div className="set-editor-row">
 					<input
 						type="text"

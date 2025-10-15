@@ -65,7 +65,7 @@ function App() {
 		e.preventDefault();
 		const idString = e.dataTransfer.getData("text/plain");
 		const id = parseInt(idString);
-		if (isNaN(id) || sets.find((s) => s.id === id)?.computed) return;
+		if (isNaN(id)) return;
 		if (!intersectionTemporarySelected.includes(id)) {
 			setIntersectionTemporarySelected([...intersectionTemporarySelected, id]);
 		}
@@ -79,7 +79,14 @@ function App() {
 		const selectedSets = intersectionTemporarySelected
 			.map((id) => sets.find((s) => s.id === id))
 			.filter(Boolean) as SetConfig[];
-		const selectedBaseSets = selectedSets.map((s) => s.baseSet!.execute());
+		const selectedBaseSets = selectedSets.map((s) => {
+			// For computed sets, baseSet is already the result, so use it directly
+			// For regular sets, baseSet needs to be executed
+			if (s.computed && s.baseSet) {
+				return s.baseSet;
+			}
+			return s.baseSet!.execute();
+		});
 		const result = intersection(...selectedBaseSets).execute();
 		const intervals = extractIntervals(result);
 		if (intervals.length === 0) {
@@ -111,7 +118,7 @@ function App() {
 		e.preventDefault();
 		const idString = e.dataTransfer.getData("text/plain");
 		const id = parseInt(idString);
-		if (isNaN(id) || sets.find((s) => s.id === id)?.computed) return;
+		if (isNaN(id)) return;
 		if (!unionTemporarySelected.includes(id)) {
 			setUnionTemporarySelected([...unionTemporarySelected, id]);
 		}
@@ -125,7 +132,14 @@ function App() {
 		const selectedSets = unionTemporarySelected
 			.map((id) => sets.find((s) => s.id === id))
 			.filter(Boolean) as SetConfig[];
-		const selectedBaseSets = selectedSets.map((s) => s.baseSet!.execute());
+		const selectedBaseSets = selectedSets.map((s) => {
+			// For computed sets, baseSet is already the result, so use it directly
+			// For regular sets, baseSet needs to be executed
+			if (s.computed && s.baseSet) {
+				return s.baseSet;
+			}
+			return s.baseSet!.execute();
+		});
 		const result = union(...selectedBaseSets).execute();
 		const intervals = extractIntervals(result);
 		const newSet = {
