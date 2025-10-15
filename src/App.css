@@ -1,8 +1,10 @@
 #root {
-  max-width: 1280px;
+  max-width: 1380px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .logo {
@@ -43,16 +45,18 @@
 
 .app-container {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .controls {
   flex: 1;
-  min-width: 600px;
+  /* min-width: 500px; */
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 15px;
+  box-sizing: border-box;
 }
 
 .drop-column {
@@ -60,7 +64,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 280px;
+  min-width: 260px;
+  box-sizing: border-box;
 }
 
 .editor-column {
@@ -68,7 +73,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 280px;
+  min-width: 260px;
+  box-sizing: border-box;
 }
 
 .sets-list {
@@ -143,6 +149,7 @@
 	padding: 20px;
 	text-align: center;
 	margin: 10px 0;
+  margin-top: 0;
 	background-color: #2c3e50;
 	color: white;
 	cursor: pointer;
@@ -211,8 +218,13 @@
 }
 
 @media (max-width: 768px) {
+  #root {
+    padding: 0.5rem;
+  }
+
   .app-container {
     flex-direction: column;
+    gap: 10px;
   }
 
   .controls {
@@ -223,10 +235,12 @@
 
   .drop-column {
     min-width: auto;
+    gap: 8px;
   }
 
   .editor-column {
     min-width: auto;
+    gap: 8px;
   }
 
   .plot-container {
@@ -259,4 +273,29 @@
     flex-direction: column;
     gap: 8px;
   }
+}
+
+@media (max-width: 480px) {
+ #root {
+   padding: 0.5rem;
+ }
+
+ .app-container {
+   gap: 8px;
+ }
+
+ .controls {
+   gap: 8px;
+ }
+
+ .drop-zone {
+   padding: 15px;
+   min-height: 100px;
+ }
+
+ .drop-buttons {
+   flex-direction: column;
+   gap: 6px;
+   margin-top: 8px;
+ }
 }

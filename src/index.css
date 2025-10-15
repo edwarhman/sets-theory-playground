@@ -28,6 +28,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 h1 {
