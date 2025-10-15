@@ -55,16 +55,6 @@
   gap: 10px;
 }
 
-.add-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  align-self: flex-start;
-}
-
 .sets-list {
   display: flex;
   flex-direction: column;
@@ -124,6 +114,11 @@
   width: 100%;
 }
 
+.set-editor .add-button {
+  background-color: #007bff;
+}
+
+
 .drop-zone {
 	border: 2px dashed #666;
 	border-radius: 4px;
@@ -152,9 +147,18 @@
 }
 
 .set-name {
-  flex: 1;
-  font-weight: bold;
-}
+   flex: 1;
+   font-weight: bold;
+ }
+
+ .set-name-input {
+   flex: 1;
+   padding: 5px;
+   min-width: 100px;
+   font-weight: bold;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+ }
 
 .intervals-summary {
   font-size: 0.9em;
@@ -202,5 +206,9 @@
   .set-editor-row input[type="color"] {
     width: 45px;
     height: 32px;
+  }
+
+  .set-name-input {
+    min-width: 120px;
   }
 }

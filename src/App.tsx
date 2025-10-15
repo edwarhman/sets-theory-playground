@@ -155,7 +155,7 @@ function App() {
 		return traces;
 	});
 
-	const maxY = sets.length + 1;
+	const maxY = 2;
 
 	return (
 		<div className="app-container">
