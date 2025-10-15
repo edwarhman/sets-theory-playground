@@ -189,10 +189,10 @@ function App() {
 										.map((id) => sets.find((s) => s.id === id)?.name)
 										.join(", ")}
 								</p>
-								<button onClick={computeIntersection}>
-									Compute Intersection
-								</button>
-								<button onClick={clearTemporary}>Clear</button>
+								<div className="drop-buttons">
+									<button onClick={computeIntersection}>Intersect</button>
+									<button onClick={clearTemporary}>Clear</button>
+								</div>
 							</div>
 						)}
 					</div>
@@ -211,8 +211,10 @@ function App() {
 										.map((id) => sets.find((s) => s.id === id)?.name)
 										.join(", ")}
 								</p>
-								<button onClick={computeUnion}>Compute Union</button>
-								<button onClick={clearUnionTemporary}>Clear</button>
+								<div className="drop-buttons">
+									<button onClick={computeUnion}>Union</button>
+									<button onClick={clearUnionTemporary}>Clear</button>
+								</div>
 							</div>
 						)}
 					</div>
