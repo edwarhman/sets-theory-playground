@@ -7,26 +7,32 @@ import { BaseSet, FiniteSet } from "./lib/algebraOfSets/Set";
 import { CompoundSet } from "./lib/algebraOfSets/CompoundSet";
 import { intersection, union } from "./lib/algebraOfSets/SetOperations";
 import { EMPTY_SET } from "./lib/algebraOfSets/constants";
+import { IntervalCreate } from "./components/IntervalCreate";
 
 function App() {
 	const [sets, setSets] = useState<SetConfig[]>([]);
-	const [temporarySelected, setTemporarySelected] = useState<number[]>([]);
+	const [intersectionTemporarySelected, setIntersectionTemporarySelected] =
+		useState<number[]>([]);
 	const [unionTemporarySelected, setUnionTemporarySelected] = useState<
 		number[]
 	>([]);
 
-	const addSet = () => {
-		setSets([
-			...sets,
-			{
-				id: Date.now(),
-				name: "New Set",
-				color: "#FF0000",
-				intervals: [{ min: 0, max: 1 }],
-				computed: false,
-				baseSet: new FiniteSet(0, 1),
-			},
-		]);
+	// Form state for adding new sets
+
+	const addSet = (newSet: SetConfig) => {
+		// Validation
+		if (!newSet.name.trim()) {
+			alert("Please enter a set name.");
+			return;
+		}
+
+		if (newSet.intervals[0].min >= newSet.intervals[0].max) {
+			alert("Minimum value must be less than maximum value.");
+			return;
+		}
+
+		// Add the new set
+		setSets([...sets, newSet]);
 	};
 
 	const updateSet = (updated: SetConfig) => {
@@ -60,17 +66,17 @@ function App() {
 		const idString = e.dataTransfer.getData("text/plain");
 		const id = parseInt(idString);
 		if (isNaN(id) || sets.find((s) => s.id === id)?.computed) return;
-		if (!temporarySelected.includes(id)) {
-			setTemporarySelected([...temporarySelected, id]);
+		if (!intersectionTemporarySelected.includes(id)) {
+			setIntersectionTemporarySelected([...intersectionTemporarySelected, id]);
 		}
 	};
 
 	const computeIntersection = () => {
-		if (temporarySelected.length < 2) {
+		if (intersectionTemporarySelected.length < 2) {
 			alert("Select at least 2 sets to intersect.");
 			return;
 		}
-		const selectedSets = temporarySelected
+		const selectedSets = intersectionTemporarySelected
 			.map((id) => sets.find((s) => s.id === id))
 			.filter(Boolean) as SetConfig[];
 		const selectedBaseSets = selectedSets.map((s) => s.baseSet!.execute());
@@ -78,7 +84,7 @@ function App() {
 		const intervals = extractIntervals(result);
 		if (intervals.length === 0) {
 			alert("Intersection is empty.");
-			setTemporarySelected([]);
+			setIntersectionTemporarySelected([]);
 			return;
 		}
 		const newSet = {
@@ -90,11 +96,11 @@ function App() {
 			baseSet: result,
 		};
 		setSets([...sets, newSet]);
-		setTemporarySelected([]);
+		setIntersectionTemporarySelected([]);
 	};
 
 	const clearTemporary = () => {
-		setTemporarySelected([]);
+		setIntersectionTemporarySelected([]);
 	};
 
 	const clearUnionTemporary = () => {
@@ -154,21 +160,18 @@ function App() {
 	return (
 		<div className="app-container">
 			<div className="controls">
-				<button onClick={addSet} className="add-button">
-					Add Set
-				</button>
 				<div
-					className={`drop-zone ${temporarySelected.length > 0 ? "active" : ""}`}
+					className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""}`}
 					onDragOver={handleDragOver}
 					onDrop={handleDrop}
 				>
-					{temporarySelected.length === 0 ? (
+					{intersectionTemporarySelected.length === 0 ? (
 						"Drop sets here to intersect"
 					) : (
 						<div>
-							<p>Dropped: {temporarySelected.length} sets</p>
+							<p>Dropped: {intersectionTemporarySelected.length} sets</p>
 							<p>
-								{temporarySelected
+								{intersectionTemporarySelected
 									.map((id) => sets.find((s) => s.id === id)?.name)
 									.join(", ")}
 							</p>
@@ -209,6 +212,7 @@ function App() {
 						/>
 					))}
 				</div>
+				<IntervalCreate addSet={addSet} />
 			</div>
 			<div className="plot-container">
 				<SetsPlot data={data} maxY={maxY} />
