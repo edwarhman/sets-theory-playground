@@ -33,6 +33,8 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 						className="set-name-input"
 						placeholder="Set Name"
 					/>
+				</div>
+				<div className="set-editor-row">
 					<span className="intervals-summary">
 						{set.intervals.map((int) => `[${int.min}, ${int.max}]`).join(" ")}
 					</span>
@@ -65,6 +67,8 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 					onChange={(e) => onUpdate({ ...set, name: e.target.value })}
 					placeholder="Set Name"
 				/>
+			</div>
+			<div className="set-editor-row">
 				<input
 					type="number"
 					value={interval.min}

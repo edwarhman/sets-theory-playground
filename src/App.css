@@ -49,10 +49,26 @@
 
 .controls {
   flex: 1;
-  min-width: 300px;
+  min-width: 600px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.drop-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 280px;
+}
+
+.editor-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 280px;
 }
 
 .sets-list {
@@ -78,6 +94,8 @@
 
  .set-editor-row {
    display: flex;
+   width: 100%;
+   justify-content: space-between;
    align-items: center;
    gap: 10px;
  }
@@ -154,7 +172,7 @@
  .set-name-input {
    flex: 1;
    padding: 5px;
-   min-width: 100px;
+   width: 100%;
    font-weight: bold;
    border: 1px solid #ccc;
    border-radius: 4px;
@@ -166,6 +184,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
+  width: 100%;
 }
 
 .color-input {
@@ -183,6 +203,16 @@
   }
 
   .controls {
+    min-width: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .drop-column {
+    min-width: auto;
+  }
+
+  .editor-column {
     min-width: auto;
   }
 

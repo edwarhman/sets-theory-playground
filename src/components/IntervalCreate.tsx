@@ -36,6 +36,8 @@ export function IntervalCreate({ addSet }: SetCreateProps) {
 					onChange={(e) => setNewSetName(e.target.value)}
 					placeholder="Set Name"
 				/>
+			</div>
+			<div className="set-editor-row">
 				<input
 					type="number"
 					value={newSetMin}

@@ -160,59 +160,63 @@ function App() {
 	return (
 		<div className="app-container">
 			<div className="controls">
-				<div
-					className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""}`}
-					onDragOver={handleDragOver}
-					onDrop={handleDrop}
-				>
-					{intersectionTemporarySelected.length === 0 ? (
-						"Drop sets here to intersect"
-					) : (
-						<div>
-							<p>Dropped: {intersectionTemporarySelected.length} sets</p>
-							<p>
-								{intersectionTemporarySelected
-									.map((id) => sets.find((s) => s.id === id)?.name)
-									.join(", ")}
-							</p>
-							<button onClick={computeIntersection}>
-								Compute Intersection
-							</button>
-							<button onClick={clearTemporary}>Clear</button>
-						</div>
-					)}
+				<div className="editor-column">
+					<IntervalCreate addSet={addSet} />
+					<div className="sets-list">
+						{sets.map((set) => (
+							<SetEditor
+								key={set.id}
+								set={set}
+								onUpdate={updateSet}
+								onDelete={() => deleteSet(set.id)}
+							/>
+						))}
+					</div>
 				</div>
-				<div
-					className={`drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""}`}
-					onDragOver={handleDragOver}
-					onDrop={handleDropUnion}
-				>
-					{unionTemporarySelected.length === 0 ? (
-						"Drop sets here to union"
-					) : (
-						<div>
-							<p>Dropped: {unionTemporarySelected.length} sets</p>
-							<p>
-								{unionTemporarySelected
-									.map((id) => sets.find((s) => s.id === id)?.name)
-									.join(", ")}
-							</p>
-							<button onClick={computeUnion}>Compute Union</button>
-							<button onClick={clearUnionTemporary}>Clear</button>
-						</div>
-					)}
+				<div className="drop-column">
+					<div
+						className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""}`}
+						onDragOver={handleDragOver}
+						onDrop={handleDrop}
+					>
+						{intersectionTemporarySelected.length === 0 ? (
+							"Drop sets here to intersect"
+						) : (
+							<div>
+								<p>Dropped: {intersectionTemporarySelected.length} sets</p>
+								<p>
+									{intersectionTemporarySelected
+										.map((id) => sets.find((s) => s.id === id)?.name)
+										.join(", ")}
+								</p>
+								<button onClick={computeIntersection}>
+									Compute Intersection
+								</button>
+								<button onClick={clearTemporary}>Clear</button>
+							</div>
+						)}
+					</div>
+					<div
+						className={`drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""}`}
+						onDragOver={handleDragOver}
+						onDrop={handleDropUnion}
+					>
+						{unionTemporarySelected.length === 0 ? (
+							"Drop sets here to union"
+						) : (
+							<div>
+								<p>Dropped: {unionTemporarySelected.length} sets</p>
+								<p>
+									{unionTemporarySelected
+										.map((id) => sets.find((s) => s.id === id)?.name)
+										.join(", ")}
+								</p>
+								<button onClick={computeUnion}>Compute Union</button>
+								<button onClick={clearUnionTemporary}>Clear</button>
+							</div>
+						)}
+					</div>
 				</div>
-				<div className="sets-list">
-					{sets.map((set) => (
-						<SetEditor
-							key={set.id}
-							set={set}
-							onUpdate={updateSet}
-							onDelete={() => deleteSet(set.id)}
-						/>
-					))}
-				</div>
-				<IntervalCreate addSet={addSet} />
 			</div>
 			<div className="plot-container">
 				<SetsPlot data={data} maxY={maxY} />
