@@ -77,14 +77,20 @@
 }
 
 .set-editor {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   margin-bottom: 10px;
+ }
+
+ .set-editor-row {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+ }
 
 .set-editor input[type="text"] {
   flex: 1;
@@ -115,6 +121,7 @@
   cursor: pointer;
   min-height: 35px;
   white-space: nowrap;
+  width: 100%;
 }
 
 .drop-zone {
@@ -179,11 +186,21 @@
     min-width: auto;
   }
 
-  .set-editor {
+  .set-editor-row {
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   .set-editor input[type="text"] {
     min-width: 120px;
+  }
+
+  .set-editor-row input[type="number"] {
+    width: 70px;
+  }
+
+  .set-editor-row input[type="color"] {
+    width: 45px;
+    height: 32px;
   }
 }

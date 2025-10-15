@@ -140,9 +140,9 @@ function App() {
 		setUnionTemporarySelected([]);
 	};
 
-	const data = sets.flatMap((set, index) => {
+	const data = sets.flatMap((set) => {
 		const opacity = set.computed ? "40" : "80";
-		const yLevel = index + 1;
+		const yLevel = 1;
 		const traces = set.intervals.map((int) => ({
 			y: [yLevel, yLevel],
 			x: [int.min, int.max],

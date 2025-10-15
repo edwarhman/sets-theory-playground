@@ -25,16 +25,18 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 	if (set.computed) {
 		return (
 			<div className="set-editor computed-set">
-				<span className="set-name">{set.name}</span>
-				<span className="intervals-summary">
-					{set.intervals.map((int) => `[${int.min}, ${int.max}]`).join(" ")}
-				</span>
-				<input
-					type="color"
-					value={set.color}
-					onChange={(e) => onUpdate({ ...set, color: e.target.value })}
-					className="color-input"
-				/>
+				<div className="set-editor-row">
+					<span className="set-name">{set.name}</span>
+					<span className="intervals-summary">
+						{set.intervals.map((int) => `[${int.min}, ${int.max}]`).join(" ")}
+					</span>
+					<input
+						type="color"
+						value={set.color}
+						onChange={(e) => onUpdate({ ...set, color: e.target.value })}
+						className="color-input"
+					/>
+				</div>
 				<button onClick={onDelete}>Delete</button>
 			</div>
 		);
@@ -50,43 +52,45 @@ const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 				e.dataTransfer.setData("text/plain", set.id.toString())
 			}
 		>
-			<input
-				type="text"
-				value={set.name}
-				onChange={(e) => onUpdate({ ...set, name: e.target.value })}
-				placeholder="Set Name"
-			/>
-			<input
-				type="number"
-				value={interval.min}
-				onChange={(e) => {
-					const newMin = parseFloat(e.target.value) || 0;
-					onUpdate({
-						...set,
-						intervals: [{ min: newMin, max: interval.max }],
-						baseSet: new FiniteSet(newMin, interval.max),
-					});
-				}}
-				placeholder="Min"
-			/>
-			<input
-				type="number"
-				value={interval.max}
-				onChange={(e) => {
-					const newMax = parseFloat(e.target.value) || 0;
-					onUpdate({
-						...set,
-						intervals: [{ min: interval.min, max: newMax }],
-						baseSet: new FiniteSet(interval.min, newMax),
-					});
-				}}
-				placeholder="Max"
-			/>
-			<input
-				type="color"
-				value={set.color}
-				onChange={(e) => onUpdate({ ...set, color: e.target.value })}
-			/>
+			<div className="set-editor-row">
+				<input
+					type="text"
+					value={set.name}
+					onChange={(e) => onUpdate({ ...set, name: e.target.value })}
+					placeholder="Set Name"
+				/>
+				<input
+					type="number"
+					value={interval.min}
+					onChange={(e) => {
+						const newMin = parseFloat(e.target.value) || 0;
+						onUpdate({
+							...set,
+							intervals: [{ min: newMin, max: interval.max }],
+							baseSet: new FiniteSet(newMin, interval.max),
+						});
+					}}
+					placeholder="Min"
+				/>
+				<input
+					type="number"
+					value={interval.max}
+					onChange={(e) => {
+						const newMax = parseFloat(e.target.value) || 0;
+						onUpdate({
+							...set,
+							intervals: [{ min: interval.min, max: newMax }],
+							baseSet: new FiniteSet(interval.min, newMax),
+						});
+					}}
+					placeholder="Max"
+				/>
+				<input
+					type="color"
+					value={set.color}
+					onChange={(e) => onUpdate({ ...set, color: e.target.value })}
+				/>
+			</div>
 			<button onClick={onDelete}>Delete</button>
 		</div>
 	);

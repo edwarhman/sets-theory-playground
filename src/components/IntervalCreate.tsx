@@ -29,31 +29,34 @@ export function IntervalCreate({ addSet }: SetCreateProps) {
 	}
 	return (
 		<div className="set-editor">
-			<input
-				type="text"
-				value={newSetName}
-				onChange={(e) => setNewSetName(e.target.value)}
-				placeholder="Set Name"
-			/>
-			<input
-				type="number"
-				value={newSetMin}
-				onChange={(e) => setNewSetMin(parseFloat(e.target.value) || 0)}
-				placeholder="Min"
-				step="0.1"
-			/>
-			<input
-				type="number"
-				value={newSetMax}
-				onChange={(e) => setNewSetMax(parseFloat(e.target.value) || 0)}
-				placeholder="Max"
-				step="0.1"
-			/>
-			<input
-				type="color"
-				value={newSetColor}
-				onChange={(e) => setNewSetColor(e.target.value)}
-			/>
+			<div className="set-editor-row">
+				<input
+					type="text"
+					value={newSetName}
+					onChange={(e) => setNewSetName(e.target.value)}
+					placeholder="Set Name"
+				/>
+				<input
+					type="number"
+					value={newSetMin}
+					onChange={(e) => setNewSetMin(parseFloat(e.target.value) || 0)}
+					placeholder="Min"
+					step="0.1"
+				/>
+				<input
+					type="number"
+					value={newSetMax}
+					onChange={(e) => setNewSetMax(parseFloat(e.target.value) || 0)}
+					placeholder="Max"
+					step="0.1"
+				/>
+				<input
+					type="color"
+					value={newSetColor}
+					onChange={(e) => setNewSetColor(e.target.value)}
+					className="color-input"
+				/>
+			</div>
 			<button onClick={handleClick} className="add-button">
 				Add Set
 			</button>
