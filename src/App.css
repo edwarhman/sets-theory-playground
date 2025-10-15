@@ -111,14 +111,56 @@
 }
 
 .set-editor {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   padding: 10px;
-   border: 1px solid #ccc;
-   border-radius: 4px;
-   margin-bottom: 10px;
- }
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+.draggable-set-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.draggable-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  min-height: 60px;
+  cursor: grab;
+  background-color: #2c3e50;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #ecf0f1;
+  user-select: none;
+  transition: background-color 0.2s, cursor 0.2s;
+  flex-shrink: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.draggable-section:hover {
+  background-color: #34495e;
+  cursor: grabbing;
+}
+
+.draggable-section:active {
+  cursor: grabbing;
+  background-color: #1a252f;
+}
+
+.set-editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
 
  .set-editor-row {
    display: flex;
@@ -135,7 +177,7 @@
 }
 
 .set-editor input[type="number"] {
-  width: 80px;
+  width: 60px;
   padding: 5px;
 }
 
@@ -202,7 +244,6 @@
   padding: 10px;
   border: 1px solid #800080;
   border-radius: 4px;
-  margin-bottom: 10px;
   background-color: #f3e5f5;
 }
 
@@ -290,6 +331,22 @@
 
   .set-name-input {
     min-width: 120px;
+  }
+
+  .draggable-set-wrapper {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .draggable-section {
+    width: 100%;
+    height: 40px;
+    writing-mode: initial;
+    text-orientation: initial;
+  }
+
+  .set-editor-container {
+    gap: 8px;
   }
 
   .drop-buttons {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import SetsPlot from "./components/SetsPlot";
-import SetEditor from "./components/SetEditor";
+import DraggableSetEditor from "./components/DraggableSetEditor";
 import type { SetConfig } from "./components/SetEditor";
 import { BaseSet, FiniteSet } from "./lib/algebraOfSets/Set";
 import { CompoundSet } from "./lib/algebraOfSets/CompoundSet";
@@ -178,7 +178,7 @@ function App() {
 					<IntervalCreate addSet={addSet} />
 					<div className="sets-list">
 						{sets.map((set) => (
-							<SetEditor
+							<DraggableSetEditor
 								key={set.id}
 								set={set}
 								onUpdate={updateSet}
