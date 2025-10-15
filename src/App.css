@@ -162,6 +162,11 @@
   min-width: 0;
 }
 
+/* Align IntervalCreate with SetEditor content area */
+.interval-create-alignment {
+  margin-left: 40px; /* Drag handle width (30px) + gap (10px) */
+}
+
  .set-editor-row {
    display: flex;
    width: 100%;
@@ -347,6 +352,10 @@
 
   .set-editor-container {
     gap: 8px;
+  }
+
+  .interval-create-alignment {
+    margin-left: 0; /* Remove margin on mobile since layout is vertical */
   }
 
   .drop-buttons {

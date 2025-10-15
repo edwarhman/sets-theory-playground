@@ -175,7 +175,9 @@ function App() {
 		<div className="app-container">
 			<div className="controls">
 				<div className="editor-column">
-					<IntervalCreate addSet={addSet} />
+					<div className="interval-create-alignment">
+						<IntervalCreate addSet={addSet} />
+					</div>
 					<div className="sets-list">
 						{sets.map((set) => (
 							<DraggableSetEditor
