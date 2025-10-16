@@ -1,5 +1,5 @@
 #root {
-  max-width: 1380px;
+  width: 100%;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
@@ -54,20 +54,22 @@
   flex: 1;
   min-width: 500px;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction: row;
+  gap: 17px;
+  height: 95vh;
   box-sizing: border-box;
 }
 
 .drop-section {
   display: flex;
-  flex-direction: row;
-  gap: 15px;
-  min-width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  /* min-width: 100%; */
 }
 
 .editor-section {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 10px;
 }
@@ -226,6 +228,7 @@
 
 
 .drop-zone {
+  flex: 1;
 	border: 2px dashed #666;
 	border-radius: 4px;
 	padding: 20px;
@@ -316,6 +319,8 @@
   .drop-section {
     flex-direction: column;
     gap: 8px;
+    width: 100%; /* Full width on mobile */
+    margin-left: 0; /* No margin needed on mobile */
   }
 
   .editor-section {
