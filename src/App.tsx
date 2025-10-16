@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, type DragEvent } from "react";
 import "./App.css";
 import SetsPlot from "./components/SetsPlot";
 import DraggableSetEditor from "./components/DraggableSetEditor";
@@ -57,11 +57,11 @@ function App() {
 		return [];
 	};
 
-	const handleDragOver = (e: React.DragEvent) => {
+	const handleDragOver = (e: DragEvent) => {
 		e.preventDefault();
 	};
 
-	const handleDrop = (e: React.DragEvent) => {
+	const handleDrop = (e: DragEvent) => {
 		e.preventDefault();
 		const idString = e.dataTransfer.getData("text/plain");
 		const id = parseInt(idString);
@@ -114,7 +114,7 @@ function App() {
 		setUnionTemporarySelected([]);
 	};
 
-	const handleDropUnion = (e: React.DragEvent) => {
+	const handleDropUnion = (e: DragEvent) => {
 		e.preventDefault();
 		const idString = e.dataTransfer.getData("text/plain");
 		const id = parseInt(idString);

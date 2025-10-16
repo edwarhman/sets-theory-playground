@@ -20,10 +20,10 @@ const SetsPlot: React.FC<SetsPlotProps> = ({ data, maxY }) => {
 		<Plot
 			data={data}
 			layout={{
-				title: "Sets Plot",
-				xaxis: { title: "Values" },
+				title: { text: "Sets Plot" },
+				xaxis: { title: { text: "Values" } },
 				yaxis: {
-					title: "Set Index",
+					title: { text: "Set Index" },
 					range: [0, maxY || 4],
 					showticklabels: false,
 				},

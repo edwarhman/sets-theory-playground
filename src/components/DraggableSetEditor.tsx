@@ -1,4 +1,4 @@
-import React from "react";
+import type { DragEvent, FC } from "react";
 import SetEditor, { type SetConfig } from "./SetEditor";
 
 interface DraggableSetEditorProps {
@@ -7,12 +7,12 @@ interface DraggableSetEditorProps {
 	onDelete: () => void;
 }
 
-const DraggableSetEditor: React.FC<DraggableSetEditorProps> = ({
+const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
 	set,
 	onUpdate,
 	onDelete,
 }) => {
-	const handleDragStart = (e: React.DragEvent) => {
+	const handleDragStart = (e: DragEvent) => {
 		// Set drag data
 		e.dataTransfer.setData("text/plain", set.id.toString());
 		e.dataTransfer.effectAllowed = "move";

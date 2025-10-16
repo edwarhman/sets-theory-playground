@@ -1,4 +1,4 @@
-import React from "react";
+import type { FC } from "react";
 import { BaseSet, FiniteSet } from "../lib/algebraOfSets/Set";
 
 export interface Interval {
@@ -21,7 +21,7 @@ interface SetEditorProps {
 	onDelete: () => void;
 }
 
-const SetEditor: React.FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
+const SetEditor: FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 	if (set.computed) {
 		return (
 			<div
