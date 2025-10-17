@@ -8,6 +8,8 @@ interface DraggableSetEditorProps {
 	onDragStart?: () => void;
 	onDrag?: () => void;
 	onDragEnd?: () => void;
+	isSelected?: boolean;
+	onSelectionChange?: (selected: boolean) => void;
 }
 
 const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
@@ -17,6 +19,8 @@ const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
 	onDragStart,
 	onDrag,
 	onDragEnd,
+	isSelected = false,
+	onSelectionChange,
 }) => {
 	const handleDragStart = (e: DragEvent) => {
 		// Set drag data
@@ -46,7 +50,13 @@ const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
 		>
 			<div className="draggable-section">⋮⋮</div>
 			<div className="set-editor-container">
-				<SetEditor set={set} onUpdate={onUpdate} onDelete={onDelete} />
+				<SetEditor
+					set={set}
+					onUpdate={onUpdate}
+					onDelete={onDelete}
+					isSelected={isSelected}
+					onSelectionChange={onSelectionChange}
+				/>
 			</div>
 		</div>
 	);

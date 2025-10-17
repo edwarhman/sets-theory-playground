@@ -131,13 +131,29 @@
 }
 
 .set-editor {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+     display: flex;
+     gap: 10px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     align-items: flex-start;
+   }
+
+.set-editor-main {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     flex: 1;
+     min-width: 0;
+   }
+
+.set-editor-secondary {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     align-items: center;
+     justify-content: flex-start;
+   }
 
 .draggable-set-wrapper {
   display: flex;
@@ -327,17 +343,65 @@
   border-radius: 4px;
 }
 
-.set-editor button {
-  padding: 8px 12px;
-  background-color: #ff4444;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  min-height: 35px;
-  white-space: nowrap;
-  width: 100%;
-}
+.set-editor .delete-button {
+   padding: 8px;
+   background-color: #ff4444;
+   color: white !important;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   min-height: 35px;
+   min-width: 35px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 18px;
+   font-weight: bold;
+   transition: background-color 0.2s ease;
+ }
+
+.set-editor .delete-button:hover {
+   background-color: #e63939;
+   color: white !important;
+ }
+
+.set-editor .set-selection-checkbox {
+   cursor: pointer;
+   width: 35px;
+   height: 35px;
+   margin: 0;
+   appearance: none;
+   border: 2px solid #ccc;
+   border-radius: 4px;
+   background-color: white;
+   position: relative;
+   flex-shrink: 0;
+ }
+
+.set-editor .set-selection-checkbox:checked {
+   background-color: #007bff;
+   border-color: #007bff;
+ }
+
+.set-editor .set-selection-checkbox:checked::after {
+   content: '✓';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   color: white;
+   font-size: 20px;
+   font-weight: bold;
+ }
+
+.set-editor .set-selection-checkbox:hover {
+   border-color: #007bff;
+ }
+
+.set-editor .set-selection-checkbox:checked:hover {
+   border-color: #0056b3;
+   background-color: #0056b3;
+ }
 
 .set-editor .add-button {
   background-color: #007bff;
@@ -377,14 +441,9 @@
 }
 
 .computed-set {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #800080;
-  border-radius: 4px;
-  background-color: #f3e5f5;
-}
+   background-color: #f3e5f5;
+   border: 1px solid #800080;
+ }
 
 .set-name {
    flex: 1;
@@ -448,6 +507,23 @@
   }
 
   .plot-container {
+    min-width: auto;
+  }
+
+  .set-editor {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .set-editor-main {
+    gap: 8px;
+  }
+
+  .set-editor-secondary {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     min-width: auto;
   }
 

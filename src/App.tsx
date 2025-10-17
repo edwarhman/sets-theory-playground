@@ -348,6 +348,8 @@ function App() {
 								onDragStart={handleDragStart}
 								onDrag={handleDrag}
 								onDragEnd={handleDragEnd}
+								isSelected={selectedSets.includes(set.id)}
+								onSelectionChange={() => toggleSetSelection(set.id)}
 							/>
 						))}
 					</div>
