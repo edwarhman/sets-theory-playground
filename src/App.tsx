@@ -11,6 +11,8 @@ import { IntervalCreate } from "./components/IntervalCreate";
 
 function App() {
 	const [sets, setSets] = useState<SetConfig[]>([]);
+	// Note: These are kept for backward compatibility but no longer used
+	// with the new merged drag-and-drop system
 	const [intersectionTemporarySelected, setIntersectionTemporarySelected] =
 		useState<number[]>([]);
 	const [unionTemporarySelected, setUnionTemporarySelected] = useState<
@@ -81,69 +83,24 @@ function App() {
 		// Just end the drag operation without any other actions
 	};
 
-	const handleDrop = (e: DragEvent) => {
+	const handleDropMerged = (e: DragEvent) => {
 		e.preventDefault();
 		const idString = e.dataTransfer.getData("text/plain");
 		const id = parseInt(idString);
 		if (isNaN(id)) return;
+
+		// Add to both temporary selections for now - user can choose operation later
 		if (!intersectionTemporarySelected.includes(id)) {
 			setIntersectionTemporarySelected([...intersectionTemporarySelected, id]);
 		}
-		// Also update the permanent selection state for intersection
+		if (!unionTemporarySelected.includes(id)) {
+			setUnionTemporarySelected([...unionTemporarySelected, id]);
+		}
+
+		// Also update the permanent selection state
 		if (!selectedSets.includes(id)) {
 			setSelectedSets([...selectedSets, id]);
 		}
-	};
-
-	const computeIntersection = () => {
-		if (intersectionTemporarySelected.length < 2) {
-			alert("Select at least 2 sets to intersect.");
-			return;
-		}
-		const selectedSets = intersectionTemporarySelected
-			.map((id) => sets.find((s) => s.id === id))
-			.filter(Boolean) as SetConfig[];
-		const selectedBaseSets = selectedSets.map((s) => {
-			// For computed sets, baseSet is already the result, so use it directly
-			// For regular sets, baseSet needs to be executed
-			if (s.computed && s.baseSet) {
-				return s.baseSet;
-			}
-			return s.baseSet!.execute();
-		});
-		const result = intersection(...selectedBaseSets).execute();
-		const intervals = extractIntervals(result);
-		if (intervals.length === 0) {
-			alert("Intersection is empty.");
-			setIntersectionTemporarySelected([]);
-			return;
-		}
-		const newSet = {
-			id: Date.now(),
-			name: `Intersection of ${selectedSets.map((s) => s.name).join(", ")}`,
-			color: "#800080",
-			intervals,
-			computed: true,
-			baseSet: result,
-		};
-		setSets([...sets, newSet]);
-		setIntersectionTemporarySelected([]);
-	};
-
-	const clearTemporary = () => {
-		setIntersectionTemporarySelected([]);
-		// Also clear from permanent selection if it was only used for intersection
-		setSelectedSets((prev) =>
-			prev.filter((id) => unionTemporarySelected.includes(id)),
-		);
-	};
-
-	const clearUnionTemporary = () => {
-		setUnionTemporarySelected([]);
-		// Also clear from permanent selection if it was only used for union
-		setSelectedSets((prev) =>
-			prev.filter((id) => intersectionTemporarySelected.includes(id)),
-		);
 	};
 
 	const toggleSetSelection = (id: number) => {
@@ -226,50 +183,6 @@ function App() {
 		setIntersectionTemporarySelected([]);
 	};
 
-	const handleDropUnion = (e: DragEvent) => {
-		e.preventDefault();
-		const idString = e.dataTransfer.getData("text/plain");
-		const id = parseInt(idString);
-		if (isNaN(id)) return;
-		if (!unionTemporarySelected.includes(id)) {
-			setUnionTemporarySelected([...unionTemporarySelected, id]);
-		}
-		// Also update the permanent selection state for union
-		if (!selectedSets.includes(id)) {
-			setSelectedSets([...selectedSets, id]);
-		}
-	};
-
-	const computeUnion = () => {
-		if (unionTemporarySelected.length < 2) {
-			alert("Select at least 2 sets to union.");
-			return;
-		}
-		const selectedSets = unionTemporarySelected
-			.map((id) => sets.find((s) => s.id === id))
-			.filter(Boolean) as SetConfig[];
-		const selectedBaseSets = selectedSets.map((s) => {
-			// For computed sets, baseSet is already the result, so use it directly
-			// For regular sets, baseSet needs to be executed
-			if (s.computed && s.baseSet) {
-				return s.baseSet;
-			}
-			return s.baseSet!.execute();
-		});
-		const result = union(...selectedBaseSets).execute();
-		const intervals = extractIntervals(result);
-		const newSet = {
-			id: Date.now(),
-			name: `Union of ${selectedSets.map((s) => s.name).join(", ")}`,
-			color: "#008000",
-			intervals,
-			computed: true,
-			baseSet: result,
-		};
-		setSets([...sets, newSet]);
-		setUnionTemporarySelected([]);
-	};
-
 	const data = sets.flatMap((set) => {
 		const opacity = set.computed ? "40" : "80";
 		const yLevel = 1;
@@ -331,6 +244,24 @@ function App() {
 							</button>
 						</div>
 					</div>
+					{/* Merged drop zone overlay - only visible when dragging */}
+					{isDragMoving && (
+						<div className="drag-overlay-zone">
+							<div onDragOver={handleDragOver} onDrop={handleDropMerged}>
+								<div className="drag-overlay-content">
+									<p>Drop sets here for set operations</p>
+									<p>Supports both Union and Intersection</p>
+								</div>
+							</div>
+							<div
+								className={`drop-zone cancel-zone ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
+								onDragOver={handleDragOver}
+								onDrop={handleCancelDrop}
+							>
+								Drop here to cancel
+							</div>
+						</div>
+					)}
 					<div className="interval-create-alignment">
 						<IntervalCreate addSet={addSet} />
 					</div>
@@ -348,59 +279,6 @@ function App() {
 								onSelectionChange={() => toggleSetSelection(set.id)}
 							/>
 						))}
-					</div>
-				</div>
-				<div className="drop-section">
-					<div
-						className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""} ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
-						onDragOver={handleDragOver}
-						onDrop={handleDrop}
-					>
-						{intersectionTemporarySelected.length === 0 ? (
-							"Drop sets here to intersect"
-						) : (
-							<div>
-								<p>Dropped: {intersectionTemporarySelected.length} sets</p>
-								<p>
-									{intersectionTemporarySelected
-										.map((id) => sets.find((s) => s.id === id)?.name)
-										.join(", ")}
-								</p>
-								<div className="drop-buttons">
-									<button onClick={computeIntersection}>Intersect</button>
-									<button onClick={clearTemporary}>Clear</button>
-								</div>
-							</div>
-						)}
-					</div>
-					<div
-						className={`drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""} ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
-						onDragOver={handleDragOver}
-						onDrop={handleDropUnion}
-					>
-						{unionTemporarySelected.length === 0 ? (
-							"Drop sets here to union"
-						) : (
-							<div>
-								<p>Dropped: {unionTemporarySelected.length} sets</p>
-								<p>
-									{unionTemporarySelected
-										.map((id) => sets.find((s) => s.id === id)?.name)
-										.join(", ")}
-								</p>
-								<div className="drop-buttons">
-									<button onClick={computeUnion}>Union</button>
-									<button onClick={clearUnionTemporary}>Clear</button>
-								</div>
-							</div>
-						)}
-					</div>
-					<div
-						className={`drop-zone cancel-zone ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
-						onDragOver={handleDragOver}
-						onDrop={handleCancelDrop}
-					>
-						Drop here to cancel
 					</div>
 				</div>
 			</div>
