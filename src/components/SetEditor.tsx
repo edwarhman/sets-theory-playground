@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { BaseSet, FiniteSet } from "../lib/algebraOfSets/Set";
+import { RecycleBinIcon } from "../assets/RecycleBin";
 
 export interface Interval {
 	min: number;
@@ -19,9 +20,17 @@ interface SetEditorProps {
 	set: SetConfig;
 	onUpdate: (updatedSet: SetConfig) => void;
 	onDelete: () => void;
+	isSelected?: boolean;
+	onSelectionChange?: (selected: boolean) => void;
 }
 
-const SetEditor: FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
+const SetEditor: FC<SetEditorProps> = ({
+	set,
+	onUpdate,
+	onDelete,
+	isSelected = false,
+	onSelectionChange,
+}) => {
 	if (set.computed) {
 		return (
 			<div
@@ -31,27 +40,39 @@ const SetEditor: FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 					e.dataTransfer.setData("text/plain", set.id.toString())
 				}
 			>
-				<div className="set-editor-row">
-					<input
-						type="text"
-						value={set.name}
-						onChange={(e) => onUpdate({ ...set, name: e.target.value })}
-						className="set-name-input"
-						placeholder="Set Name"
-					/>
+				<div className="set-editor-main">
+					<div className="set-editor-row">
+						<input
+							type="text"
+							value={set.name}
+							onChange={(e) => onUpdate({ ...set, name: e.target.value })}
+							className="set-name-input"
+							placeholder="Set Name"
+						/>
+					</div>
+					<div className="set-editor-row">
+						<span className="intervals-summary">
+							{set.intervals.map((int) => `[${int.min}, ${int.max}]`).join(" ")}
+						</span>
+						<input
+							type="color"
+							value={set.color}
+							onChange={(e) => onUpdate({ ...set, color: e.target.value })}
+							className="color-input"
+						/>
+					</div>
 				</div>
-				<div className="set-editor-row">
-					<span className="intervals-summary">
-						{set.intervals.map((int) => `[${int.min}, ${int.max}]`).join(" ")}
-					</span>
+				<div className="set-editor-secondary">
 					<input
-						type="color"
-						value={set.color}
-						onChange={(e) => onUpdate({ ...set, color: e.target.value })}
-						className="color-input"
+						type="checkbox"
+						checked={isSelected}
+						onChange={(e) => onSelectionChange?.(e.target.checked)}
+						className="set-selection-checkbox"
 					/>
+					<button onClick={onDelete} className="delete-button" title="Delete">
+						<RecycleBinIcon />
+					</button>
 				</div>
-				<button onClick={onDelete}>Delete</button>
 			</div>
 		);
 	}
@@ -66,48 +87,60 @@ const SetEditor: FC<SetEditorProps> = ({ set, onUpdate, onDelete }) => {
 				e.dataTransfer.setData("text/plain", set.id.toString())
 			}
 		>
-			<div className="set-editor-row">
-				<input
-					type="text"
-					value={set.name}
-					onChange={(e) => onUpdate({ ...set, name: e.target.value })}
-					placeholder="Set Name"
-				/>
+			<div className="set-editor-main">
+				<div className="set-editor-row">
+					<input
+						type="text"
+						value={set.name}
+						onChange={(e) => onUpdate({ ...set, name: e.target.value })}
+						placeholder="Set Name"
+					/>
+				</div>
+				<div className="set-editor-row">
+					<input
+						type="number"
+						value={interval.min}
+						onChange={(e) => {
+							const newMin = parseFloat(e.target.value) || 0;
+							onUpdate({
+								...set,
+								intervals: [{ min: newMin, max: interval.max }],
+								baseSet: new FiniteSet(newMin, interval.max),
+							});
+						}}
+						placeholder="Min"
+					/>
+					<input
+						type="number"
+						value={interval.max}
+						onChange={(e) => {
+							const newMax = parseFloat(e.target.value) || 0;
+							onUpdate({
+								...set,
+								intervals: [{ min: interval.min, max: newMax }],
+								baseSet: new FiniteSet(interval.min, newMax),
+							});
+						}}
+						placeholder="Max"
+					/>
+					<input
+						type="color"
+						value={set.color}
+						onChange={(e) => onUpdate({ ...set, color: e.target.value })}
+					/>
+				</div>
 			</div>
-			<div className="set-editor-row">
+			<div className="set-editor-secondary">
 				<input
-					type="number"
-					value={interval.min}
-					onChange={(e) => {
-						const newMin = parseFloat(e.target.value) || 0;
-						onUpdate({
-							...set,
-							intervals: [{ min: newMin, max: interval.max }],
-							baseSet: new FiniteSet(newMin, interval.max),
-						});
-					}}
-					placeholder="Min"
+					type="checkbox"
+					checked={isSelected}
+					onChange={(e) => onSelectionChange?.(e.target.checked)}
+					className="set-selection-checkbox"
 				/>
-				<input
-					type="number"
-					value={interval.max}
-					onChange={(e) => {
-						const newMax = parseFloat(e.target.value) || 0;
-						onUpdate({
-							...set,
-							intervals: [{ min: interval.min, max: newMax }],
-							baseSet: new FiniteSet(interval.min, newMax),
-						});
-					}}
-					placeholder="Max"
-				/>
-				<input
-					type="color"
-					value={set.color}
-					onChange={(e) => onUpdate({ ...set, color: e.target.value })}
-				/>
+				<button onClick={onDelete} className="delete-button" title="Delete">
+					<RecycleBinIcon />
+				</button>
 			</div>
-			<button onClick={onDelete}>Delete</button>
 		</div>
 	);
 };
