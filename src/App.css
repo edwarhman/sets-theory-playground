@@ -122,6 +122,9 @@
 }
 
 .plot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1.5;
   min-width: 400px;
 }
