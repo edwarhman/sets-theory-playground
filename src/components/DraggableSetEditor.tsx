@@ -30,12 +30,12 @@ const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
 		onDragStart?.();
 	};
 
-	const handleDragLocal = (e: DragEvent) => {
+	const handleDragLocal = () => {
 		// Notify parent component that dragging is in progress
 		onDrag?.();
 	};
 
-	const handleDragEndLocal = (e: DragEvent) => {
+	const handleDragEndLocal = () => {
 		// Notify parent component that dragging has ended
 		onDragEnd?.();
 	};
