@@ -418,6 +418,20 @@
   .controls {
     gap: 8px;
     flex-direction: column;
+    position: relative;
+  }
+
+  .drop-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(44, 62, 80, 0.95);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    margin: 0;
+    padding: 15px;
   }
 
   .drop-zone {
@@ -430,4 +444,27 @@
     gap: 6px;
     margin-top: 8px;
   }
+
+  /* Mobile-specific styles for drag and drop */
+  .mobile-hidden {
+    display: none;
+  }
+
+  .mobile-visible {
+    display: flex !important;
+  }
+
+  .cancel-zone.mobile-visible {
+    display: flex !important;
+  }
+
+  .cancel-zone {
+       background-color: #e74c3c;
+       border-color: #c0392b;
+       display: none; /* Hidden by default, shown only on mobile when dragging */
+     }
+  
+     .cancel-zone:hover {
+       background-color: #c0392b;
+     }
 }

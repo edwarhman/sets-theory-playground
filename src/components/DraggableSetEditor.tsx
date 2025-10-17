@@ -5,17 +5,35 @@ interface DraggableSetEditorProps {
 	set: SetConfig;
 	onUpdate: (updatedSet: SetConfig) => void;
 	onDelete: () => void;
+	onDragStart?: () => void;
+	onDrag?: () => void;
+	onDragEnd?: () => void;
 }
 
 const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
 	set,
 	onUpdate,
 	onDelete,
+	onDragStart,
+	onDrag,
+	onDragEnd,
 }) => {
 	const handleDragStart = (e: DragEvent) => {
 		// Set drag data
 		e.dataTransfer.setData("text/plain", set.id.toString());
 		e.dataTransfer.effectAllowed = "move";
+		// Notify parent component that dragging has started
+		onDragStart?.();
+	};
+
+	const handleDragLocal = (e: DragEvent) => {
+		// Notify parent component that dragging is in progress
+		onDrag?.();
+	};
+
+	const handleDragEndLocal = (e: DragEvent) => {
+		// Notify parent component that dragging has ended
+		onDragEnd?.();
 	};
 
 	return (
@@ -23,6 +41,8 @@ const DraggableSetEditor: FC<DraggableSetEditorProps> = ({
 			className={`draggable-set-wrapper`}
 			draggable
 			onDragStart={handleDragStart}
+			onDrag={handleDragLocal}
+			onDragEnd={handleDragEndLocal}
 		>
 			<div className="draggable-section">⋮⋮</div>
 			<div className="set-editor-container">

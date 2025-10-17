@@ -16,6 +16,7 @@ function App() {
 	const [unionTemporarySelected, setUnionTemporarySelected] = useState<
 		number[]
 	>([]);
+	const [isDragMoving, setIsDragMoving] = useState(false);
 
 	// Form state for adding new sets
 
@@ -59,6 +60,24 @@ function App() {
 
 	const handleDragOver = (e: DragEvent) => {
 		e.preventDefault();
+	};
+
+	const handleDragStart = () => {
+		// Don't show overlay immediately to avoid interference
+	};
+
+	const handleDrag = () => {
+		// Show overlay only after drag has actually started moving
+		setIsDragMoving(true);
+	};
+
+	const handleDragEnd = () => {
+		setIsDragMoving(false);
+	};
+
+	const handleCancelDrop = (e: DragEvent) => {
+		e.preventDefault();
+		// Just end the drag operation without any other actions
 	};
 
 	const handleDrop = (e: DragEvent) => {
@@ -185,13 +204,16 @@ function App() {
 								set={set}
 								onUpdate={updateSet}
 								onDelete={() => deleteSet(set.id)}
+								onDragStart={handleDragStart}
+								onDrag={handleDrag}
+								onDragEnd={handleDragEnd}
 							/>
 						))}
 					</div>
 				</div>
 				<div className="drop-section">
 					<div
-						className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""}`}
+						className={`drop-zone ${intersectionTemporarySelected.length > 0 ? "active" : ""} ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
 						onDragOver={handleDragOver}
 						onDrop={handleDrop}
 					>
@@ -213,7 +235,7 @@ function App() {
 						)}
 					</div>
 					<div
-						className={`drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""}`}
+						className={`drop-zone ${unionTemporarySelected.length > 0 ? "active" : ""} ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
 						onDragOver={handleDragOver}
 						onDrop={handleDropUnion}
 					>
@@ -233,6 +255,13 @@ function App() {
 								</div>
 							</div>
 						)}
+					</div>
+					<div
+						className={`drop-zone cancel-zone ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
+						onDragOver={handleDragOver}
+						onDrop={handleCancelDrop}
+					>
+						Drop here to cancel
 					</div>
 				</div>
 			</div>
