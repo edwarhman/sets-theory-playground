@@ -291,51 +291,49 @@ function App() {
 		<div className="app-container">
 			<div className="controls">
 				<div className="editor-section">
+					<div className="operations-section">
+						<h3>Set Operations</h3>
+						<div className="sets-selection">
+							{sets.map((set) => (
+								<label key={set.id} className="set-checkbox-label">
+									<input
+										type="checkbox"
+										checked={selectedSets.includes(set.id)}
+										onChange={() => toggleSetSelection(set.id)}
+										className="set-checkbox"
+									/>
+									<span className="set-name" style={{ color: set.color }}>
+										{set.name}
+									</span>
+								</label>
+							))}
+						</div>
+						<div className="operations-buttons">
+							<button
+								onClick={computeUnionFromSelection}
+								disabled={selectedSets.length < 2}
+								className="operation-button union-button"
+							>
+								Union U ({selectedSets.length})
+							</button>
+							<button
+								onClick={computeIntersectionFromSelection}
+								disabled={selectedSets.length < 2}
+								className="operation-button intersection-button"
+							>
+								Intersect ∩ ({selectedSets.length})
+							</button>
+							<button
+								onClick={clearSetSelection}
+								className="operation-button clear-button"
+							>
+								Clear
+							</button>
+						</div>
+					</div>
 					<div className="interval-create-alignment">
 						<IntervalCreate addSet={addSet} />
 					</div>
-					{sets.length > 0 && (
-						<div className="operations-section">
-							<h3>Set Operations</h3>
-							<div className="sets-selection">
-								{sets.map((set) => (
-									<label key={set.id} className="set-checkbox-label">
-										<input
-											type="checkbox"
-											checked={selectedSets.includes(set.id)}
-											onChange={() => toggleSetSelection(set.id)}
-											className="set-checkbox"
-										/>
-										<span className="set-name" style={{ color: set.color }}>
-											{set.name}
-										</span>
-									</label>
-								))}
-							</div>
-							<div className="operations-buttons">
-								<button
-									onClick={computeUnionFromSelection}
-									disabled={selectedSets.length < 2}
-									className="operation-button union-button"
-								>
-									Union ({selectedSets.length})
-								</button>
-								<button
-									onClick={computeIntersectionFromSelection}
-									disabled={selectedSets.length < 2}
-									className="operation-button intersection-button"
-								>
-									∩ ({selectedSets.length})
-								</button>
-								<button
-									onClick={clearSetSelection}
-									className="operation-button clear-button"
-								>
-									Clear
-								</button>
-							</div>
-						</div>
-					)}
 					<div className="sets-list">
 						{sets.map((set) => (
 							<DraggableSetEditor
