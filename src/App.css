@@ -586,25 +586,45 @@
   }
 
   .set-editor {
-    flex-direction: column;
     gap: 8px;
+    padding: 8px;
   }
 
   .set-editor-main {
     gap: 8px;
+    flex-direction: column;
   }
 
   .set-editor-secondary {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-width: auto;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: auto;
+    min-width: 50px;
+    max-width: 80px;
+    flex-shrink: 0;
+    gap: 8px;
   }
 
-  .set-editor-row {
-    flex-wrap: wrap;
+  /* Override base .set-editor-row styles for mobile */
+  .set-editor-main .set-editor-row {
+    display: flex;
+    width: 100%;
     gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  /* First row - Name input takes full width */
+  .set-editor-main .set-editor-row:first-child {
+    justify-content: stretch;
+  }
+
+  .set-editor-main .set-editor-row:first-child input[type="text"] {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
   }
 
   .set-editor input[type="text"] {
@@ -612,13 +632,16 @@
   }
 
   .set-editor-row input[type="number"] {
-    width: 70px;
+    width: 55px;
+    min-width: 55px;
   }
 
   .set-editor-row input[type="color"] {
-    width: 45px;
-    height: 32px;
+    width: 40px;
+    height: 30px;
+    min-width: 40px;
   }
+
 
   .set-name-input {
     min-width: 120px;
