@@ -312,30 +312,28 @@ function App() {
 									</label>
 								))}
 							</div>
-							{selectedSets.length > 0 && (
-								<div className="operations-buttons">
-									<button
-										onClick={computeUnionFromSelection}
-										disabled={selectedSets.length < 2}
-										className="operation-button union-button"
-									>
-										Union ({selectedSets.length})
-									</button>
-									<button
-										onClick={computeIntersectionFromSelection}
-										disabled={selectedSets.length < 2}
-										className="operation-button intersection-button"
-									>
-										∩ ({selectedSets.length})
-									</button>
-									<button
-										onClick={clearSetSelection}
-										className="operation-button clear-button"
-									>
-										Clear
-									</button>
-								</div>
-							)}
+							<div className="operations-buttons">
+								<button
+									onClick={computeUnionFromSelection}
+									disabled={selectedSets.length < 2}
+									className="operation-button union-button"
+								>
+									Union ({selectedSets.length})
+								</button>
+								<button
+									onClick={computeIntersectionFromSelection}
+									disabled={selectedSets.length < 2}
+									className="operation-button intersection-button"
+								>
+									∩ ({selectedSets.length})
+								</button>
+								<button
+									onClick={clearSetSelection}
+									className="operation-button clear-button"
+								>
+									Clear
+								</button>
+							</div>
 						</div>
 					)}
 					<div className="sets-list">
