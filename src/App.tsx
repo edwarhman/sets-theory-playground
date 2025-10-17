@@ -247,18 +247,22 @@ function App() {
 					{/* Merged drop zone overlay - only visible when dragging */}
 					{isDragMoving && (
 						<div className="drag-overlay-zone">
-							<div onDragOver={handleDragOver} onDrop={handleDropMerged}>
+							<div
+								className="drag-overlay-main"
+								onDragOver={handleDragOver}
+								onDrop={handleDropMerged}
+							>
 								<div className="drag-overlay-content">
 									<p>Drop sets here for set operations</p>
 									<p>Supports both Union and Intersection</p>
 								</div>
 							</div>
 							<div
-								className={`drop-zone cancel-zone ${isDragMoving ? "mobile-visible" : "mobile-hidden"}`}
+								className="drag-overlay-cancel"
 								onDragOver={handleDragOver}
 								onDrop={handleCancelDrop}
 							>
-								Drop here to cancel
+								<p>Drop here to cancel</p>
 							</div>
 						</div>
 					)}

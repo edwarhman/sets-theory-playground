@@ -233,19 +233,58 @@
 
 /* Drag overlay zone positioned over operations section */
 .drag-overlay-zone {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(52, 73, 94, 0.9);
-  border: 2px dashed #3498db;
   border-radius: 4px;
+  display: flex;
+  gap: 10px;
+  margin: 0.5rem;
+  flex-direction: column;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.drag-overlay-main {
+  background-color: rgba(52, 73, 94, 0.9);
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(2px);
+  padding: 20px;
+  border: 2px dashed #3498db;
+  border-radius: 8px;
+  pointer-events: auto;
+}
+
+.drag-overlay-cancel {
+  flex: 0 0 auto;
+  background-color: rgba(231, 76, 60, 0.9);
+  border-radius: 0 0 2px 2px;
+  padding: 15px;
+  color: #ecf0f1;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #3498db;
+  border-radius: 8px;
+  pointer-events: auto;
+}
+
+.drag-overlay-cancel:hover {
+  background-color: rgba(192, 57, 43, 0.95);
+}
+
+.drag-overlay-cancel p {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
 }
 
 .drag-overlay-content {
@@ -712,6 +751,24 @@
     justify-content: space-around;
   }
 
+  .drag-overlay-main {
+    min-height: 80px;
+    max-height: calc(100vh - 140px);
+    padding: 15px;
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+
+  .drag-overlay-cancel {
+    padding: 12px;
+    min-height: 60px;
+    flex: 0 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
   .drop-zone {
     padding: 15px;
     min-height: 100px;
@@ -736,13 +793,13 @@
     display: flex !important;
   }
 
-  .cancel-zone {
-       background-color: #e74c3c;
-       border-color: #c0392b;
-       display: none; /* Hidden by default, shown only on mobile when dragging */
-     }
-  
-     .cancel-zone:hover {
+
+     .drag-overlay-cancel:hover {
        background-color: #c0392b;
+     }
+
+     /* Ensure cancel section shows on mobile when dragging */
+     .drag-overlay-cancel.mobile-visible {
+       display: flex !important;
      }
 }
