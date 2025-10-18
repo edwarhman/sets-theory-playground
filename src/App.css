@@ -241,7 +241,7 @@
   border-radius: 4px;
   display: flex;
   gap: 10px;
-  margin: 0.5rem;
+  padding: 0.5rem;
   flex-direction: column;
   z-index: 1000;
   backdrop-filter: blur(2px);
