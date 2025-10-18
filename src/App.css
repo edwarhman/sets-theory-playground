@@ -246,6 +246,7 @@
   z-index: 1000;
   backdrop-filter: blur(2px);
   pointer-events: none;
+  background-color: rgba(52, 73, 94, 0.9);
 }
 
 .drag-overlay-main {
