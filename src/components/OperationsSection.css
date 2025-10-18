@@ -1,0 +1,167 @@
+/* Operations Section Styles */
+.operations-section {
+  position: relative;
+  background-color: #2c3e50;
+  border: 1px solid #34495e;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-left: 40px; /* Align with SetEditor content area (drag handle 30px + gap 10px) */
+}
+
+.operations-section h3 {
+  margin: 0 0 15px 0;
+  color: #ecf0f1;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.sets-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.set-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #34495e;
+  border: 1px solid #5a6c7d;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9em;
+}
+
+.set-checkbox-label:hover {
+  background-color: #3d566e;
+  border-color: #7a8fa5;
+}
+
+.set-checkbox {
+  margin: 0;
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+.set-checkbox-label .set-name {
+  font-weight: 500;
+  white-space: nowrap;
+  color: #ecf0f1;
+}
+
+.operations-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.operation-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.union-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.union-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.intersection-button {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.intersection-button:hover:not(:disabled) {
+  background-color: #5a359a;
+}
+
+.clear-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.clear-button:hover {
+  background-color: #c82333;
+}
+
+.operation-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Mobile responsive styles for Operations Section */
+@media (max-width: 768px) {
+  .operations-section {
+    padding: 12px;
+    margin-bottom: 8px;
+    margin-left: 0;
+  }
+
+  .operations-section h3 {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+
+  .sets-selection {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .set-checkbox-label {
+    padding: 6px 10px;
+    gap: 6px;
+    font-size: 0.85em;
+    border: 1px solid #5a6c7d;
+  }
+
+  .set-checkbox-label:hover {
+    background-color: #3d566e;
+    border-color: #7a8fa5;
+  }
+
+  .set-checkbox-label .set-name {
+    color: #ecf0f1;
+  }
+
+  .operations-buttons {
+    gap: 8px;
+  }
+
+  .operation-button {
+    padding: 8px 12px;
+    font-size: 0.85em;
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sets-selection {
+    justify-content: center;
+  }
+
+  .set-checkbox-label {
+    flex: 1;
+    min-width: calc(50% - 4px);
+    justify-content: center;
+    text-align: center;
+  }
+
+  .operations-buttons {
+    justify-content: space-around;
+  }
+}

@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { BaseSet, FiniteSet } from "../lib/algebraOfSets/Set";
 import { RecycleBinIcon } from "../assets/RecycleBin";
+import "./SetEditor.css";
 
 export interface Interval {
 	min: number;

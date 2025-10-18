@@ -1,5 +1,7 @@
 import { useState, type DragEvent } from "react";
 import "./App.css";
+import "./components/OperationsSection.css";
+import "./components/DragOverlay.css";
 import SetsPlot from "./components/SetsPlot";
 import DraggableSetEditor from "./components/DraggableSetEditor";
 import type { SetConfig } from "./components/SetEditor";

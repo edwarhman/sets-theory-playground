@@ -1,5 +1,6 @@
 import type { DragEvent, FC } from "react";
 import SetEditor, { type SetConfig } from "./SetEditor";
+import "./DraggableSetEditor.css";
 
 interface DraggableSetEditorProps {
 	set: SetConfig;
