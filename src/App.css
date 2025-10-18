@@ -256,7 +256,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  border: 2px dashed #ffffff;
+  border: 2px dashed #3498db;
   border-radius: 8px;
   pointer-events: auto;
 }
@@ -272,7 +272,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px dashed #3498db;
+  border: 2px dashed #fff;
   border-radius: 8px;
   pointer-events: auto;
 }
