@@ -11,13 +11,6 @@ import { IntervalCreate } from "./components/IntervalCreate";
 
 function App() {
 	const [sets, setSets] = useState<SetConfig[]>([]);
-	// Note: These are kept for backward compatibility but no longer used
-	// with the new merged drag-and-drop system
-	const [intersectionTemporarySelected, setIntersectionTemporarySelected] =
-		useState<number[]>([]);
-	const [unionTemporarySelected, setUnionTemporarySelected] = useState<
-		number[]
-	>([]);
 	const [isDragMoving, setIsDragMoving] = useState(false);
 	const [selectedSets, setSelectedSets] = useState<number[]>([]);
 
@@ -89,14 +82,6 @@ function App() {
 		const id = parseInt(idString);
 		if (isNaN(id)) return;
 
-		// Add to both temporary selections for now - user can choose operation later
-		if (!intersectionTemporarySelected.includes(id)) {
-			setIntersectionTemporarySelected([...intersectionTemporarySelected, id]);
-		}
-		if (!unionTemporarySelected.includes(id)) {
-			setUnionTemporarySelected([...unionTemporarySelected, id]);
-		}
-
 		// Also update the permanent selection state
 		if (!selectedSets.includes(id)) {
 			setSelectedSets([...selectedSets, id]);
@@ -140,8 +125,6 @@ function App() {
 		setSets([...sets, newSet]);
 		setSelectedSets([]);
 		// Also clear drag temporary selections since they were used
-		setUnionTemporarySelected([]);
-		setIntersectionTemporarySelected([]);
 	};
 
 	const computeIntersectionFromSelection = () => {
@@ -163,9 +146,6 @@ function App() {
 		if (intervals.length === 0) {
 			alert("Intersection is empty.");
 			setSelectedSets([]);
-			// Also clear drag temporary selections
-			setUnionTemporarySelected([]);
-			setIntersectionTemporarySelected([]);
 			return;
 		}
 		const newSet = {
@@ -178,9 +158,6 @@ function App() {
 		};
 		setSets([...sets, newSet]);
 		setSelectedSets([]);
-		// Also clear drag temporary selections since they were used
-		setUnionTemporarySelected([]);
-		setIntersectionTemporarySelected([]);
 	};
 
 	const data = sets.flatMap((set) => {
