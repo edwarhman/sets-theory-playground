@@ -188,23 +188,6 @@ function App() {
 				<div className="editor-section">
 					<div className="operations-section">
 						<h3>Set Operations</h3>
-						<div className="sets-selection">
-							{sets.map((set) => (
-								<label key={set.id} className="set-checkbox-label">
-									<input
-										type="checkbox"
-										checked={selectedSets.includes(set.id)}
-										onChange={() => toggleSetSelection(set.id)}
-										className="set-checkbox"
-										title={`Select ${set.name} for set operations`}
-										aria-label={`Select ${set.name} set`}
-									/>
-									<span className="set-name" style={{ color: set.color }}>
-										{set.name}
-									</span>
-								</label>
-							))}
-						</div>
 						<div className="operations-buttons">
 							<button
 								onClick={computeUnionFromSelection}
