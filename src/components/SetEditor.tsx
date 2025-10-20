@@ -49,6 +49,8 @@ const SetEditor: FC<SetEditorProps> = ({
 							onChange={(e) => onUpdate({ ...set, name: e.target.value })}
 							className="set-name-input"
 							placeholder="Set Name"
+							title="Edit the name of this set"
+							aria-label="Set name"
 						/>
 					</div>
 					<div className="set-editor-row">
@@ -60,6 +62,8 @@ const SetEditor: FC<SetEditorProps> = ({
 							value={set.color}
 							onChange={(e) => onUpdate({ ...set, color: e.target.value })}
 							className="color-input"
+							title="Change the color used to display this set in the visualization"
+							aria-label="Set color"
 						/>
 					</div>
 				</div>
@@ -69,8 +73,15 @@ const SetEditor: FC<SetEditorProps> = ({
 						checked={isSelected}
 						onChange={(e) => onSelectionChange?.(e.target.checked)}
 						className="set-selection-checkbox"
+						title="Select this set for operations"
+						aria-label="Select set for operations"
 					/>
-					<button onClick={onDelete} className="delete-button" title="Delete">
+					<button
+						onClick={onDelete}
+						className="delete-button"
+						title="Delete this set permanently"
+						aria-label="Delete set"
+					>
 						<RecycleBinIcon />
 					</button>
 				</div>
@@ -95,6 +106,8 @@ const SetEditor: FC<SetEditorProps> = ({
 						value={set.name}
 						onChange={(e) => onUpdate({ ...set, name: e.target.value })}
 						placeholder="Set Name"
+						title="Edit the name of this set"
+						aria-label="Set name"
 					/>
 				</div>
 				<div className="set-editor-row">
@@ -110,6 +123,8 @@ const SetEditor: FC<SetEditorProps> = ({
 							});
 						}}
 						placeholder="Min"
+						title="Set the minimum value of this interval"
+						aria-label="Minimum value"
 					/>
 					<input
 						type="number"
@@ -123,11 +138,15 @@ const SetEditor: FC<SetEditorProps> = ({
 							});
 						}}
 						placeholder="Max"
+						title="Set the maximum value of this interval"
+						aria-label="Maximum value"
 					/>
 					<input
 						type="color"
 						value={set.color}
 						onChange={(e) => onUpdate({ ...set, color: e.target.value })}
+						title="Change the color used to display this set in the visualization"
+						aria-label="Set color"
 					/>
 				</div>
 			</div>
@@ -137,8 +156,15 @@ const SetEditor: FC<SetEditorProps> = ({
 					checked={isSelected}
 					onChange={(e) => onSelectionChange?.(e.target.checked)}
 					className="set-selection-checkbox"
+					title="Select this set for operations"
+					aria-label="Select set for operations"
 				/>
-				<button onClick={onDelete} className="delete-button" title="Delete">
+				<button
+					onClick={onDelete}
+					className="delete-button"
+					title="Delete this set permanently"
+					aria-label="Delete set"
+				>
 					<RecycleBinIcon />
 				</button>
 			</div>

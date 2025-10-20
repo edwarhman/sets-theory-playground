@@ -1,0 +1,154 @@
+.help-section {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.help-toggle {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 16px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+	width: 100%;
+	text-align: left;
+}
+
+.help-toggle:hover {
+	background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.help-toggle:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.help-icon {
+	font-size: 18px;
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.7; }
+}
+
+.help-text {
+	flex: 1;
+}
+
+.expand-icon {
+	font-size: 12px;
+	transition: transform 0.3s ease;
+}
+
+.expand-icon.expanded {
+	transform: rotate(-90deg);
+}
+
+.help-content {
+	margin-top: 12px;
+	padding: 20px;
+	background: #f8f9fa;
+	border: 1px solid #e9ecef;
+	border-radius: 8px;
+	animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.help-category {
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #dee2e6;
+}
+
+.help-category:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.help-category h4 {
+	color: #495057;
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0 0 10px 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.help-category p {
+    margin: 0 0 10px 0;
+    text-align: left;
+	color: #6c757d;
+    line-height: 1.5;
+}
+
+.help-category ul {
+	margin: 0;
+	padding-left: 20px;
+	color: #6c757d;
+	line-height: 1.5;
+    text-wrap-style: pretty;
+    text-align: left;
+}
+
+.help-category li {
+	margin-bottom: 5px;
+}
+
+.help-shortcuts {
+	background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+	padding: 15px;
+	border-radius: 6px;
+	border-left: 4px solid #2196f3;
+}
+
+.help-shortcuts h4 {
+	color: #1976d2;
+	margin-top: 0;
+}
+
+.help-shortcuts ul {
+	padding-left: 20px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+	.help-toggle {
+		padding: 10px 14px;
+		font-size: 13px;
+	}
+
+	.help-content {
+		padding: 15px;
+	}
+
+	.help-category h4 {
+		font-size: 15px;
+	}
+
+	.help-category ul {
+		padding-left: 15px;
+	}
+}

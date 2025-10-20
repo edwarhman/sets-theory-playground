@@ -2,8 +2,10 @@ import { useState, type DragEvent } from "react";
 import "./App.css";
 import "./components/OperationsSection.css";
 import "./components/DragOverlay.css";
+import "./components/HelpSection.css";
 import SetsPlot from "./components/SetsPlot";
 import DraggableSetEditor from "./components/DraggableSetEditor";
+import HelpSection from "./components/HelpSection";
 import type { SetConfig } from "./components/SetEditor";
 import { BaseSet, FiniteSet } from "./lib/algebraOfSets/Set";
 import { CompoundSet } from "./lib/algebraOfSets/CompoundSet";
@@ -182,6 +184,7 @@ function App() {
 	return (
 		<div className="app-container">
 			<div className="controls">
+				<HelpSection />
 				<div className="editor-section">
 					<div className="operations-section">
 						<h3>Set Operations</h3>
@@ -193,6 +196,8 @@ function App() {
 										checked={selectedSets.includes(set.id)}
 										onChange={() => toggleSetSelection(set.id)}
 										className="set-checkbox"
+										title={`Select ${set.name} for set operations`}
+										aria-label={`Select ${set.name} set`}
 									/>
 									<span className="set-name" style={{ color: set.color }}>
 										{set.name}
@@ -205,6 +210,8 @@ function App() {
 								onClick={computeUnionFromSelection}
 								disabled={selectedSets.length < 2}
 								className="operation-button union-button"
+								title="Create union of selected sets (combines all elements)"
+								aria-label={`Create union of ${selectedSets.length} selected sets`}
 							>
 								Union U ({selectedSets.length})
 							</button>
@@ -212,12 +219,16 @@ function App() {
 								onClick={computeIntersectionFromSelection}
 								disabled={selectedSets.length < 2}
 								className="operation-button intersection-button"
+								title="Create intersection of selected sets (shows common elements only)"
+								aria-label={`Create intersection of ${selectedSets.length} selected sets`}
 							>
 								Intersect ∩ ({selectedSets.length})
 							</button>
 							<button
 								onClick={clearSetSelection}
 								className="operation-button clear-button"
+								title="Clear all selected sets"
+								aria-label="Clear all selected sets"
 							>
 								Clear
 							</button>
@@ -230,6 +241,8 @@ function App() {
 								className="drag-overlay-main"
 								onDragOver={handleDragOver}
 								onDrop={handleDropMerged}
+								title="Drop sets here to add them to selection for set operations"
+								aria-label="Drop zone for set operations"
 							>
 								<div className="drag-overlay-content">
 									<p>Drop sets here for set operations</p>
@@ -240,6 +253,8 @@ function App() {
 								className="drag-overlay-cancel"
 								onDragOver={handleDragOver}
 								onDrop={handleCancelDrop}
+								title="Drop here to cancel the drag operation"
+								aria-label="Cancel drop zone"
 							>
 								<p>Drop here to cancel</p>
 							</div>
