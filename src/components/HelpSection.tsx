@@ -113,12 +113,11 @@ const HelpSection = () => {
 						<h4>📊 Visualization</h4>
 						<ul>
 							<li>Sets are displayed as colored bars on the number line</li>
-							<li>
-								Regular sets have solid colors, computed sets are
-								semi-transparent
-							</li>
 							<li>Hover over set names in the plot legend for details</li>
 							<li>Use zoom and pan controls to explore the visualization</li>
+							<li>
+								Download or export the visualization using the camera icon 📷
+							</li>
 						</ul>
 					</div>
 
