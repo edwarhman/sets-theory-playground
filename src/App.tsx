@@ -1,11 +1,14 @@
 import { useState, type DragEvent } from "react";
+import { useTranslation } from "react-i18next";
 import "./App.css";
 import "./components/OperationsSection.css";
 import "./components/DragOverlay.css";
 import "./components/HelpSection.css";
+import "./components/LanguageSwitcher.css";
 import SetsPlot from "./components/SetsPlot";
 import DraggableSetEditor from "./components/DraggableSetEditor";
 import HelpSection from "./components/HelpSection";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 import type { SetConfig } from "./components/SetEditor";
 import { BaseSet, FiniteSet } from "./lib/algebraOfSets/Set";
 import { CompoundSet } from "./lib/algebraOfSets/CompoundSet";
@@ -14,6 +17,7 @@ import { EMPTY_SET } from "./lib/algebraOfSets/constants";
 import { IntervalCreate } from "./components/IntervalCreate";
 
 function App() {
+	const { t } = useTranslation();
 	const [sets, setSets] = useState<SetConfig[]>([]);
 	const [isDragMoving, setIsDragMoving] = useState(false);
 	const [selectedSets, setSelectedSets] = useState<number[]>([]);
@@ -23,12 +27,12 @@ function App() {
 	const addSet = (newSet: SetConfig) => {
 		// Validation
 		if (!newSet.name.trim()) {
-			alert("Please enter a set name.");
+			alert(t("messages.enterName"));
 			return;
 		}
 
 		if (newSet.intervals[0].min >= newSet.intervals[0].max) {
-			alert("Minimum value must be less than maximum value.");
+			alert(t("messages.invalidInterval"));
 			return;
 		}
 
@@ -104,7 +108,7 @@ function App() {
 
 	const computeUnionFromSelection = () => {
 		if (selectedSets.length < 2) {
-			alert("Select at least 2 sets to union.");
+			alert(t("operations.selectAtLeast2", { operation: "union" }));
 			return;
 		}
 		const selectedSetObjects = selectedSets
@@ -133,7 +137,7 @@ function App() {
 
 	const computeIntersectionFromSelection = () => {
 		if (selectedSets.length < 2) {
-			alert("Select at least 2 sets to intersect.");
+			alert(t("operations.selectAtLeast2", { operation: "intersect" }));
 			return;
 		}
 		const selectedSetObjects = selectedSets
@@ -148,7 +152,7 @@ function App() {
 		const result = intersection(...selectedBaseSets).execute();
 		const intervals = extractIntervals(result);
 		if (intervals.length === 0) {
-			alert("Intersection is empty.");
+			alert(t("operations.intersectionEmpty"));
 			setSelectedSets([]);
 			return;
 		}
@@ -182,91 +186,104 @@ function App() {
 	const maxY = 2;
 
 	return (
-		<div className="app-container">
-			<div className="controls">
-				<HelpSection />
-				<div className="editor-section">
-					<div className="operations-section">
-						<h3>Set Operations</h3>
-						<div className="operations-buttons">
-							<button
-								onClick={computeUnionFromSelection}
-								disabled={selectedSets.length < 2}
-								className="operation-button union-button"
-								title="Create union of selected sets (combines all elements)"
-								aria-label={`Create union of ${selectedSets.length} selected sets`}
-							>
-								Union U ({selectedSets.length})
-							</button>
-							<button
-								onClick={computeIntersectionFromSelection}
-								disabled={selectedSets.length < 2}
-								className="operation-button intersection-button"
-								title="Create intersection of selected sets (shows common elements only)"
-								aria-label={`Create intersection of ${selectedSets.length} selected sets`}
-							>
-								Intersect ∩ ({selectedSets.length})
-							</button>
-							<button
-								onClick={clearSetSelection}
-								className="operation-button clear-button"
-								title="Clear all selected sets"
-								aria-label="Clear all selected sets"
-							>
-								Clear
-							</button>
+		<>
+			<div className="app-header">
+				<LanguageSwitcher />
+			</div>
+			<div className="app-container">
+				<div className="controls">
+					<HelpSection />
+					<div className="editor-section">
+						<div className="operations-section">
+							<h3>{t("operations.setOperations")}</h3>
+							<div className="operations-buttons">
+								<button
+									onClick={computeUnionFromSelection}
+									disabled={selectedSets.length < 2}
+									className="operation-button union-button"
+									title={t("accessibility.createUnion", {
+										count: selectedSets.length,
+									})}
+									aria-label={t("accessibility.createUnion", {
+										count: selectedSets.length,
+									})}
+								>
+									{t("operations.union")} ({selectedSets.length})
+								</button>
+								<button
+									onClick={computeIntersectionFromSelection}
+									disabled={selectedSets.length < 2}
+									className="operation-button intersection-button"
+									title={t("accessibility.createIntersection", {
+										count: selectedSets.length,
+									})}
+									aria-label={t("accessibility.createIntersection", {
+										count: selectedSets.length,
+									})}
+								>
+									{t("operations.intersection")} ({selectedSets.length})
+								</button>
+								<button
+									onClick={clearSetSelection}
+									className="operation-button clear-button"
+									title={t("accessibility.clearSelection")}
+									aria-label={t("accessibility.clearSelection")}
+								>
+									{t("operations.clear")}
+								</button>
+							</div>
 						</div>
-					</div>
-					{/* Merged drop zone overlay - only visible when dragging */}
-					{isDragMoving && (
-						<div className="drag-overlay-zone">
-							<div
-								className="drag-overlay-main"
-								onDragOver={handleDragOver}
-								onDrop={handleDropMerged}
-								title="Drop sets here to add them to selection for set operations"
-								aria-label="Drop zone for set operations"
-							>
-								<div className="drag-overlay-content">
-									<p>Drop sets here for set operations</p>
-									<p>Supports both Union and Intersection</p>
+						{/* Merged drop zone overlay - only visible when dragging */}
+						{isDragMoving && (
+							<div className="drag-overlay-zone">
+								<div
+									className="drag-overlay-main"
+									onDragOver={handleDragOver}
+									onDrop={handleDropMerged}
+									title={t("dragDrop.dropZone")}
+									aria-label={t("accessibility.dropZoneLabel")}
+								>
+									<div className="drag-overlay-content">
+										<p>{t("dragDrop.dropZone")}</p>
+										<p>{t("dragDrop.dropZoneSubtitle")}</p>
+									</div>
+								</div>
+								<div
+									className="drag-overlay-cancel"
+									onDragOver={handleDragOver}
+									onDrop={handleCancelDrop}
+									title={t("dragDrop.cancelDrop")}
+									aria-label={t("accessibility.cancelZoneLabel")}
+								>
+									<p>{t("dragDrop.cancelDrop")}</p>
 								</div>
 							</div>
-							<div
-								className="drag-overlay-cancel"
-								onDragOver={handleDragOver}
-								onDrop={handleCancelDrop}
-								title="Drop here to cancel the drag operation"
-								aria-label="Cancel drop zone"
-							>
-								<p>Drop here to cancel</p>
-							</div>
+						)}
+						<div className="interval-create-alignment">
+							<IntervalCreate addSet={addSet} />
 						</div>
-					)}
-					<div className="interval-create-alignment">
-						<IntervalCreate addSet={addSet} />
-					</div>
-					<div className="sets-list">
-						{sets.map((set) => (
-							<DraggableSetEditor
-								key={set.id}
-								set={set}
-								onUpdate={updateSet}
-								onDelete={() => deleteSet(set.id)}
-								onDragStart={handleDragStart}
-								onDrag={handleDrag}
-								onDragEnd={handleDragEnd}
-								isSelected={selectedSets.includes(set.id)}
-								onSelectionChange={() => toggleSetSelection(set.id)}
-							/>
-						))}
+						<div className="sets-list">
+							{sets.map((set) => (
+								<DraggableSetEditor
+									key={set.id}
+									set={set}
+									onUpdate={updateSet}
+									onDelete={() => deleteSet(set.id)}
+									onDragStart={handleDragStart}
+									onDrag={handleDrag}
+									onDragEnd={handleDragEnd}
+									isSelected={selectedSets.includes(set.id)}
+									onSelectionChange={() => toggleSetSelection(set.id)}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
+				<div className="plot-container">
+					<SetsPlot data={data} maxY={maxY} />
+				</div>
 			</div>
-			<div className="plot-container">
-				<SetsPlot data={data} maxY={maxY} />
-			</div>
-		</div>
+		</>
 	);
 }
 

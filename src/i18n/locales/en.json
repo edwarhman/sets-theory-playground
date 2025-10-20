@@ -1,0 +1,128 @@
+{
+  "app": {
+    "title": "Set Algebra Visualizer",
+    "howToUse": "How to Use"
+  },
+  "help": {
+    "creatingSets": {
+      "title": "Creating Sets",
+      "content": [
+        "Use the interval creation form to add new sets",
+        "Enter a name and define intervals with min/max values",
+        "Click \"Add Set\" to create the set"
+      ]
+    },
+    "selectingSets": {
+      "title": "Selecting Sets",
+      "content": [
+        "Check the boxes next to set names to select them",
+        "Selected sets are highlighted in the visualization",
+        "Use \"Clear\" button to deselect all sets"
+      ]
+    },
+    "editingSets": {
+      "title": "Editing Sets",
+      "content": [
+        "Click the edit button on any set card to modify it",
+        "Change the name, color, or interval values",
+        "Click \"Save\" to apply changes or \"Cancel\" to discard",
+        "Use the color picker to change set visualization color"
+      ]
+    },
+    "deletingSets": {
+      "title": "Deleting Sets",
+      "content": [
+        "Click the delete button (trash icon) on any set card",
+        "Confirm deletion in the popup dialog",
+        "Deleted sets are immediately removed from the visualization"
+      ]
+    },
+    "setOperations": {
+      "title": "Set Operations",
+      "content": [
+        "Union (U): Combines selected sets - shows all elements in any set",
+        "Intersection (∩): Shows only elements common to all selected sets",
+        "Select at least 2 sets before using operations",
+        "Results appear as new sets in the list"
+      ]
+    },
+    "dragDrop": {
+      "title": "Drag & Drop",
+      "content": [
+        "Drag Handle: Click and hold the six dots (⋮⋮) to drag a set",
+        "Drop Zone: Drag sets to the overlay area during drag operations",
+        "Add to Selection: Dropping adds the set to selected sets for operations",
+        "Cancel: Drop in the red \"cancel\" area to abort the drag",
+        "The entire set visually follows your mouse during dragging"
+      ]
+    },
+    "visualization": {
+      "title": "Visualization",
+      "content": [
+        "Sets are displayed as colored bars on the number line",
+        "Regular sets have solid colors, computed sets are semi-transparent",
+        "Hover over set names in the plot legend for details",
+        "Use zoom and pan controls to explore the visualization"
+      ]
+    },
+    "tips": {
+      "title": "Tips",
+      "content": [
+        "Start by creating 2-3 basic interval sets",
+        "Try union and intersection operations to see how they work",
+        "Use different colors to distinguish between sets",
+        "Drag sets to quickly select them for operations"
+      ]
+    }
+  },
+  "operations": {
+    "setOperations": "Set Operations",
+    "union": "Union U",
+    "intersection": "Intersect ∩",
+    "clear": "Clear",
+    "selectAtLeast2": "Select at least 2 sets to {{operation}}.",
+    "intersectionEmpty": "Intersection is empty."
+  },
+  "buttons": {
+    "addSet": "Add Set",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "form": {
+    "setName": "Set Name",
+    "min": "Min",
+    "max": "Max",
+    "color": "Color",
+    "namePlaceholder": "Enter set name",
+    "minPlaceholder": "Min value",
+    "maxPlaceholder": "Max value"
+  },
+  "messages": {
+    "enterName": "Please enter a set name.",
+    "invalidInterval": "Minimum value must be less than maximum value.",
+    "confirmDelete": "Are you sure you want to delete this set?",
+    "operationResult": "Operation completed successfully"
+  },
+  "dragDrop": {
+    "dropZone": "Drop sets here for set operations",
+    "dropZoneSubtitle": "Supports both Union and Intersection",
+    "cancelDrop": "Drop here to cancel",
+    "selectSet": "Select {{setName}} for set operations",
+    "deleteSet": "Delete this set permanently",
+    "selectForOperations": "Select this set for operations"
+  },
+  "accessibility": {
+    "setName": "Set name",
+    "minValue": "Minimum value",
+    "maxValue": "Maximum value",
+    "setColor": "Set color",
+    "createUnion": "Create union of {{count}} selected sets",
+    "createIntersection": "Create intersection of {{count}} selected sets",
+    "clearSelection": "Clear all selected sets",
+    "dropZoneLabel": "Drop zone for set operations",
+    "cancelZoneLabel": "Cancel drop zone"
+  }
+}

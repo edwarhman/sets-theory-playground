@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { BaseSet, FiniteSet } from "../lib/algebraOfSets/Set";
 import { RecycleBinIcon } from "../assets/RecycleBin";
 import "./SetEditor.css";
@@ -32,6 +33,7 @@ const SetEditor: FC<SetEditorProps> = ({
 	isSelected = false,
 	onSelectionChange,
 }) => {
+	const { t } = useTranslation();
 	if (set.computed) {
 		return (
 			<div
@@ -48,9 +50,9 @@ const SetEditor: FC<SetEditorProps> = ({
 							value={set.name}
 							onChange={(e) => onUpdate({ ...set, name: e.target.value })}
 							className="set-name-input"
-							placeholder="Set Name"
-							title="Edit the name of this set"
-							aria-label="Set name"
+							placeholder={t("form.namePlaceholder")}
+							title={t("form.setName")}
+							aria-label={t("accessibility.setName")}
 						/>
 					</div>
 					<div className="set-editor-row">
@@ -62,8 +64,8 @@ const SetEditor: FC<SetEditorProps> = ({
 							value={set.color}
 							onChange={(e) => onUpdate({ ...set, color: e.target.value })}
 							className="color-input"
-							title="Change the color used to display this set in the visualization"
-							aria-label="Set color"
+							title={t("form.color")}
+							aria-label={t("accessibility.setColor")}
 						/>
 					</div>
 				</div>
@@ -73,14 +75,14 @@ const SetEditor: FC<SetEditorProps> = ({
 						checked={isSelected}
 						onChange={(e) => onSelectionChange?.(e.target.checked)}
 						className="set-selection-checkbox"
-						title="Select this set for operations"
-						aria-label="Select set for operations"
+						title={t("dragDrop.selectForOperations")}
+						aria-label={t("dragDrop.selectForOperations")}
 					/>
 					<button
 						onClick={onDelete}
 						className="delete-button"
-						title="Delete this set permanently"
-						aria-label="Delete set"
+						title={t("dragDrop.deleteSet")}
+						aria-label={t("dragDrop.deleteSet")}
 					>
 						<RecycleBinIcon />
 					</button>
@@ -105,9 +107,9 @@ const SetEditor: FC<SetEditorProps> = ({
 						type="text"
 						value={set.name}
 						onChange={(e) => onUpdate({ ...set, name: e.target.value })}
-						placeholder="Set Name"
-						title="Edit the name of this set"
-						aria-label="Set name"
+						placeholder={t("form.namePlaceholder")}
+						title={t("form.setName")}
+						aria-label={t("accessibility.setName")}
 					/>
 				</div>
 				<div className="set-editor-row">
@@ -122,9 +124,9 @@ const SetEditor: FC<SetEditorProps> = ({
 								baseSet: new FiniteSet(newMin, interval.max),
 							});
 						}}
-						placeholder="Min"
-						title="Set the minimum value of this interval"
-						aria-label="Minimum value"
+						placeholder={t("form.min")}
+						title={t("form.min")}
+						aria-label={t("accessibility.minValue")}
 					/>
 					<input
 						type="number"
@@ -137,16 +139,16 @@ const SetEditor: FC<SetEditorProps> = ({
 								baseSet: new FiniteSet(interval.min, newMax),
 							});
 						}}
-						placeholder="Max"
-						title="Set the maximum value of this interval"
-						aria-label="Maximum value"
+						placeholder={t("form.max")}
+						title={t("form.max")}
+						aria-label={t("accessibility.maxValue")}
 					/>
 					<input
 						type="color"
 						value={set.color}
 						onChange={(e) => onUpdate({ ...set, color: e.target.value })}
-						title="Change the color used to display this set in the visualization"
-						aria-label="Set color"
+						title={t("form.color")}
+						aria-label={t("accessibility.setColor")}
 					/>
 				</div>
 			</div>
@@ -156,14 +158,14 @@ const SetEditor: FC<SetEditorProps> = ({
 					checked={isSelected}
 					onChange={(e) => onSelectionChange?.(e.target.checked)}
 					className="set-selection-checkbox"
-					title="Select this set for operations"
-					aria-label="Select set for operations"
+					title={t("dragDrop.selectForOperations")}
+					aria-label={t("dragDrop.selectForOperations")}
 				/>
 				<button
 					onClick={onDelete}
 					className="delete-button"
-					title="Delete this set permanently"
-					aria-label="Delete set"
+					title={t("dragDrop.deleteSet")}
+					aria-label={t("dragDrop.deleteSet")}
 				>
 					<RecycleBinIcon />
 				</button>

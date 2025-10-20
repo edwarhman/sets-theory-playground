@@ -1,0 +1,128 @@
+{
+  "app": {
+    "title": "Visualizador de Álgebra de Conjuntos",
+    "howToUse": "Cómo Usar"
+  },
+  "help": {
+    "creatingSets": {
+      "title": "Crear Conjuntos",
+      "content": [
+        "Usa el formulario de creación de intervalos para añadir nuevos conjuntos",
+        "Ingresa un nombre y define intervalos con valores mínimo/máximo",
+        "Haz clic en \"Añadir Conjunto\" para crear el conjunto"
+      ]
+    },
+    "selectingSets": {
+      "title": "Seleccionar Conjuntos",
+      "content": [
+        "Marca las casillas junto a los nombres de los conjuntos para seleccionarlos",
+        "Los conjuntos seleccionados se resaltan en la visualización",
+        "Usa el botón \"Limpiar\" para deseleccionar todos los conjuntos"
+      ]
+    },
+    "editingSets": {
+      "title": "Editar Conjuntos",
+      "content": [
+        "Haz clic en el botón de editar en cualquier tarjeta de conjunto para modificarlo",
+        "Cambia el nombre, color o valores de intervalo",
+        "Haz clic en \"Guardar\" para aplicar cambios o \"Cancelar\" para descartar",
+        "Usa el selector de color para cambiar el color de visualización del conjunto"
+      ]
+    },
+    "deletingSets": {
+      "title": "Eliminar Conjuntos",
+      "content": [
+        "Haz clic en el botón de eliminar (ícono de papelera) en cualquier tarjeta de conjunto",
+        "Confirma la eliminación en el diálogo emergente",
+        "Los conjuntos eliminados se remueven inmediatamente de la visualización"
+      ]
+    },
+    "setOperations": {
+      "title": "Operaciones de Conjuntos",
+      "content": [
+        "Unión (U): Combina conjuntos seleccionados - muestra todos los elementos en cualquier conjunto",
+        "Intersección (∩): Muestra solo los elementos comunes a todos los conjuntos seleccionados",
+        "Selecciona al menos 2 conjuntos antes de usar las operaciones",
+        "Los resultados aparecen como nuevos conjuntos en la lista"
+      ]
+    },
+    "dragDrop": {
+      "title": "Arrastrar y Soltar",
+      "content": [
+        "Mango de Arrastrar: Haz clic y mantén presionados los seis puntos (⋮⋮) para arrastrar un conjunto",
+        "Zona de Soltar: Arrastra conjuntos al área superpuesta durante las operaciones de arrastre",
+        "Añadir a Selección: Soltar añade el conjunto a los conjuntos seleccionados para operaciones",
+        "Cancelar: Suelta en el área roja \"cancelar\" para abortar el arrastre",
+        "Todo el conjunto sigue visualmente tu mouse durante el arrastre"
+      ]
+    },
+    "visualization": {
+      "title": "Visualización",
+      "content": [
+        "Los conjuntos se muestran como barras de colores en la línea numérica",
+        "Los conjuntos regulares tienen colores sólidos, los conjuntos calculados son semi-transparentes",
+        "Pasa el mouse sobre los nombres de conjuntos en la leyenda del gráfico para ver detalles",
+        "Usa los controles de zoom y paneo para explorar la visualización"
+      ]
+    },
+    "tips": {
+      "title": "Consejos",
+      "content": [
+        "Comienza creando 2-3 conjuntos de intervalos básicos",
+        "Prueba las operaciones de unión e intersección para ver cómo funcionan",
+        "Usa diferentes colores para distinguir entre conjuntos",
+        "Arrastra conjuntos para seleccionarlos rápidamente para operaciones"
+      ]
+    }
+  },
+  "operations": {
+    "setOperations": "Operaciones de Conjuntos",
+    "union": "Unión U",
+    "intersection": "Intersección ∩",
+    "clear": "Limpiar",
+    "selectAtLeast2": "Selecciona al menos 2 conjuntos para {{operation}}.",
+    "intersectionEmpty": "La intersección está vacía."
+  },
+  "buttons": {
+    "addSet": "Añadir Conjunto",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar"
+  },
+  "form": {
+    "setName": "Nombre del Conjunto",
+    "min": "Mín",
+    "max": "Máx",
+    "color": "Color",
+    "namePlaceholder": "Ingresa nombre del conjunto",
+    "minPlaceholder": "Valor mínimo",
+    "maxPlaceholder": "Valor máximo"
+  },
+  "messages": {
+    "enterName": "Por favor ingresa un nombre para el conjunto.",
+    "invalidInterval": "El valor mínimo debe ser menor que el valor máximo.",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este conjunto?",
+    "operationResult": "Operación completada exitosamente"
+  },
+  "dragDrop": {
+    "dropZone": "Suelta conjuntos aquí para operaciones de conjuntos",
+    "dropZoneSubtitle": "Soporta tanto Unión como Intersección",
+    "cancelDrop": "Suelta aquí para cancelar",
+    "selectSet": "Seleccionar {{setName}} para operaciones de conjuntos",
+    "deleteSet": "Eliminar este conjunto permanentemente",
+    "selectForOperations": "Seleccionar este conjunto para operaciones"
+  },
+  "accessibility": {
+    "setName": "Nombre del conjunto",
+    "minValue": "Valor mínimo",
+    "maxValue": "Valor máximo",
+    "setColor": "Color del conjunto",
+    "createUnion": "Crear unión de {{count}} conjuntos seleccionados",
+    "createIntersection": "Crear intersección de {{count}} conjuntos seleccionados",
+    "clearSelection": "Limpiar todos los conjuntos seleccionados",
+    "dropZoneLabel": "Zona de soltado para operaciones de conjuntos",
+    "cancelZoneLabel": "Zona de cancelación de soltado"
+  }
+}

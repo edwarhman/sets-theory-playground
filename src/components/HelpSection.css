@@ -1,7 +1,7 @@
 .help-section {
 	position: relative;
 	margin-bottom: 20px;
-	max-height: 100vh;
+	max-height: max-content;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
