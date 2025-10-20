@@ -115,6 +115,7 @@
 @media (max-width: 768px) {
  #root {
    padding: 0.5rem;
+   height: auto;
  }
 
  .app-container {
