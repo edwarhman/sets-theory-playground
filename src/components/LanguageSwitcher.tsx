@@ -16,7 +16,7 @@ const LanguageSwitcher = () => {
 				title="Switch to English"
 				aria-label="Switch to English"
 			>
-				EN
+				🇺🇸
 			</button>
 			<button
 				className={`lang-button ${i18n.language === "es" ? "active" : ""}`}
@@ -24,7 +24,7 @@ const LanguageSwitcher = () => {
 				title="Cambiar a Español"
 				aria-label="Cambiar a Español"
 			>
-				ES
+				🇪🇸
 			</button>
 		</div>
 	);
