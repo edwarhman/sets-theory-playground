@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiniteSet } from "../lib/algebraOfSets/Set";
 import type { SetConfig } from "./SetEditor";
 
@@ -7,7 +8,8 @@ export interface SetCreateProps {
 }
 
 export function IntervalCreate({ addSet }: SetCreateProps) {
-	const [newSetName, setNewSetName] = useState("New Set");
+	const { t } = useTranslation();
+	const [newSetName, setNewSetName] = useState(t("form.namePlaceholder"));
 	const [newSetMin, setNewSetMin] = useState(0);
 	const [newSetMax, setNewSetMax] = useState(1);
 	const [newSetColor, setNewSetColor] = useState("#ff0000");
@@ -22,7 +24,7 @@ export function IntervalCreate({ addSet }: SetCreateProps) {
 			baseSet: new FiniteSet(newSetMin, newSetMax),
 		});
 		// Reset form to default values
-		setNewSetName("New Set");
+		setNewSetName(t("form.namePlaceholder"));
 		setNewSetMin(0);
 		setNewSetMax(1);
 		setNewSetColor("#FF0000");
@@ -35,7 +37,7 @@ export function IntervalCreate({ addSet }: SetCreateProps) {
 						type="text"
 						value={newSetName}
 						onChange={(e) => setNewSetName(e.target.value)}
-						placeholder="Set Name"
+						placeholder={t("form.namePlaceholder")}
 					/>
 				</div>
 				<div className="set-editor-row">
@@ -43,14 +45,14 @@ export function IntervalCreate({ addSet }: SetCreateProps) {
 						type="number"
 						value={newSetMin}
 						onChange={(e) => setNewSetMin(parseFloat(e.target.value) || 0)}
-						placeholder="Min"
+						placeholder={t("form.min")}
 						step="0.1"
 					/>
 					<input
 						type="number"
 						value={newSetMax}
 						onChange={(e) => setNewSetMax(parseFloat(e.target.value) || 0)}
-						placeholder="Max"
+						placeholder={t("form.max")}
 						step="0.1"
 					/>
 					<input
@@ -63,7 +65,7 @@ export function IntervalCreate({ addSet }: SetCreateProps) {
 			</div>
 			<div className="set-editor-secondary">
 				<button onClick={handleClick} className="add-button">
-					Add Set
+					{t("buttons.addSet")}
 				</button>
 			</div>
 		</div>
