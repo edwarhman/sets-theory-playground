@@ -188,7 +188,10 @@ function App() {
 	return (
 		<>
 			<div className="app-header">
-				<LanguageSwitcher />
+				<h1>{t("app.title")}</h1>
+				<div className="language-switcher-container">
+					<LanguageSwitcher />
+				</div>
 			</div>
 			<div className="app-container">
 				<div className="controls">
